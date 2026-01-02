@@ -1,0 +1,12 @@
+symbol,name,start_date,end_date,rows
+XLB,Materials,2005-02-25,2025-12-31,5245
+XLC,Communication Services,2018-06-21,2025-12-31,1893
+XLE,Energy,2005-02-25,2025-12-31,5245
+XLF,Financials,2005-02-25,2025-12-31,5245
+XLI,Industrials,2005-02-25,2025-12-31,5245
+XLK,Technology,2005-02-25,2025-12-31,5245
+XLP,Consumer Staples,2005-02-25,2025-12-31,5245
+XLRE,Real Estate,2015-10-08,2025-12-31,2569
+XLU,Utilities,2005-02-25,2025-12-31,5245
+XLV,Health Care,2005-02-25,2025-12-31,5245
+XLY,Consumer Discretionary,2005-02-25,2025-12-31,5245

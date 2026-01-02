@@ -10,15 +10,23 @@ from pathlib import Path
 from fredapi import Fred
 from api_usage import ApiUsageTracker
 from config import FRED_API_KEY, INDICATORS
+from data_store import SQLiteStore
 from derivatives import compute_all_derivatives
 import time
 
 class FredDataEngine:
-    def __init__(self, data_dir: str = "data", usage_tracker: ApiUsageTracker | None = None):
+    def __init__(
+        self,
+        data_dir: str = "data",
+        usage_tracker: ApiUsageTracker | None = None,
+        db_path: str | None = None,
+    ):
         self.fred = Fred(api_key=FRED_API_KEY) if FRED_API_KEY else None
         self.can_fetch = self.fred is not None
         self.data_dir = Path(data_dir)
         self.data_dir.mkdir(exist_ok=True)
+        self.db_path = Path(db_path) if db_path else (self.data_dir / "timeseries.db")
+        self.store = SQLiteStore(str(self.db_path)) if self.db_path else None
         self.metadata_file = self.data_dir / "metadata.csv"
         self.metrics_cache = {}
         self.metadata = self._load_metadata()
@@ -126,14 +134,22 @@ class FredDataEngine:
         updated_count = 0
 
         for series_id in self.series_map:
-            file_path = self.data_dir / f"{series_id}.csv"
-            if not refresh_existing and file_path.exists():
-                try:
-                    existing = pd.read_csv(file_path, index_col=0, parse_dates=True)
-                    if not existing.empty:
-                        continue
-                except Exception:
-                    pass
+            if not refresh_existing:
+                if self.store:
+                    try:
+                        if self.store.has_fred_series(series_id):
+                            continue
+                    except Exception:
+                        pass
+                file_path = self.data_dir / f"{series_id}.csv"
+                if file_path.exists():
+                    try:
+                        existing = pd.read_csv(file_path, index_col=0, parse_dates=True)
+                        if not existing.empty and "value" in existing.columns:
+                            self._cache_series_to_store(series_id, existing["value"])
+                            continue
+                    except Exception:
+                        pass
 
             updated, requested = self._update_series(series_id, force=refresh_existing)
             if updated:
@@ -145,13 +161,64 @@ class FredDataEngine:
         print(f"✅ Initialization complete. Updated {updated_count} series.")
 
     def get_series(self, series_id: str) -> pd.Series:
-        """Get full history for a series from local CSV"""
+        """Get full history for a series from local DB (fallback to CSV)."""
+        series = self._get_series_from_store(series_id)
+        if not series.empty:
+            return series
+        series = self._get_series_from_csv(series_id)
+        if not series.empty:
+            self._cache_series_to_store(series_id, series)
+        return series
+
+    def _get_series_from_store(self, series_id: str) -> pd.Series:
+        if not self.store:
+            return pd.Series(dtype=float)
+        try:
+            return self.store.fetch_fred_series(series_id)
+        except Exception:
+            return pd.Series(dtype=float)
+
+    def _get_series_from_csv(self, series_id: str) -> pd.Series:
         file_path = self.data_dir / f"{series_id}.csv"
-        
-        if file_path.exists():
-            df = pd.read_csv(file_path, index_col=0, parse_dates=True)
-            return df['value'].sort_index()
-        return pd.Series(dtype=float)
+        if not file_path.exists():
+            return pd.Series(dtype=float)
+        df = pd.read_csv(file_path, index_col=0, parse_dates=True)
+        if "value" not in df.columns:
+            return pd.Series(dtype=float)
+        return df["value"].sort_index()
+
+    def _cache_series_to_store(self, series_id: str, series: pd.Series) -> None:
+        if not self.store or series.empty:
+            return
+        try:
+            self.store.upsert_fred_series(series_id, series)
+        except Exception:
+            return
+
+    def _ensure_store_series(self, series_id: str) -> None:
+        if not self.store:
+            return
+        try:
+            if self.store.has_fred_series(series_id):
+                return
+        except Exception:
+            return
+        series = self._get_series_from_csv(series_id)
+        if not series.empty:
+            self._cache_series_to_store(series_id, series)
+
+    def _latest_local_date(self, series_id: str) -> pd.Timestamp | None:
+        if self.store:
+            try:
+                last = self.store.get_latest_fred_date(series_id)
+                if last is not None:
+                    return last
+            except Exception:
+                pass
+        series = self._get_series_from_csv(series_id)
+        if series.empty:
+            return None
+        return series.index.max()
 
     def _latest_value(self, series: pd.Series):
         if series is None or series.empty:
@@ -161,13 +228,23 @@ class FredDataEngine:
             return None
         return cleaned.iloc[-1]
 
-    def get_series_metrics(self, series_id: str) -> dict:
+    def _metrics_cache_key(self, series_id: str) -> str | None:
         file_path = self.data_dir / f"{series_id}.csv"
-        if not file_path.exists():
-            return {}
-        mtime = file_path.stat().st_mtime
+        if file_path.exists():
+            return f"file:{file_path.stat().st_mtime}"
+        if self.store:
+            try:
+                last = self.store.get_latest_fred_date(series_id)
+                if last is not None:
+                    return f"db:{last.strftime('%Y-%m-%d')}"
+            except Exception:
+                pass
+        return None
+
+    def get_series_metrics(self, series_id: str) -> dict:
+        cache_key = self._metrics_cache_key(series_id)
         cached = self.metrics_cache.get(series_id)
-        if cached and cached.get("mtime") == mtime:
+        if cache_key and cached and cached.get("cache_key") == cache_key:
             return cached.get("metrics", {})
 
         series = self.get_series(series_id)
@@ -207,7 +284,7 @@ class FredDataEngine:
             "signal": self._latest_value(metrics.get("signal")),
         }
 
-        self.metrics_cache[series_id] = {"mtime": mtime, "metrics": latest_metrics}
+        self.metrics_cache[series_id] = {"cache_key": cache_key, "metrics": latest_metrics}
         return latest_metrics
 
     def force_update_all(self):
@@ -252,24 +329,26 @@ class FredDataEngine:
         meta = self.series_map.get(series_id, {})
         freq = meta.get("freq", "M")
         last_observation = None
-        
-        # Check existing data
-        if file_path.exists() and not force:
+
+        if not force:
+            self._ensure_store_series(series_id)
+            last_date = self._latest_local_date(series_id)
+            if last_date is not None:
+                last_observation = last_date
+                if not self._is_stale(last_date, freq):
+                    return False, False
+
+                last_checked = self.metadata.get(series_id, {}).get("last_checked")
+                if last_checked is not None:
+                    days_since = (datetime.now() - last_checked).days
+                    if days_since < self._check_interval_days(freq):
+                        return False, False
+
+                start_date = (last_date + timedelta(days=1)).strftime('%Y-%m-%d')
+
+        if file_path.exists():
             try:
                 existing_data = pd.read_csv(file_path, index_col=0, parse_dates=True)
-                if not existing_data.empty:
-                    last_date = existing_data.index.max()
-                    last_observation = last_date
-                    if not self._is_stale(last_date, freq):
-                        return False, False # Up to date
-
-                    last_checked = self.metadata.get(series_id, {}).get("last_checked")
-                    if last_checked is not None:
-                        days_since = (datetime.now() - last_checked).days
-                        if days_since < self._check_interval_days(freq):
-                            return False, False
-
-                    start_date = (last_date + timedelta(days=1)).strftime('%Y-%m-%d')
             except Exception as e:
                 print(f"Error reading {series_id}: {e}")
                 existing_data = None
@@ -286,16 +365,30 @@ class FredDataEngine:
                 
             new_df = pd.DataFrame(new_data, columns=['value'])
             new_df.index.name = 'date'
-            
-            # Combine
+
+            if self.store:
+                try:
+                    self.store.upsert_fred_series(series_id, new_df["value"])
+                except Exception:
+                    pass
+
+            final_df = None
             if existing_data is not None and not existing_data.empty:
                 final_df = pd.concat([existing_data, new_df])
-                final_df = final_df[~final_df.index.duplicated(keep='last')] # Dedup
-            else:
-                final_df = new_df
-                
-            final_df.sort_index().to_csv(file_path)
-            last_obs = final_df.index.max()
+                final_df = final_df[~final_df.index.duplicated(keep='last')]
+            elif file_path.exists() or start_date == "1980-01-01" or force:
+                if self.store:
+                    try:
+                        final_df = self.store.fetch_fred_series(series_id).to_frame("value")
+                    except Exception:
+                        final_df = new_df
+                else:
+                    final_df = new_df
+
+            if final_df is not None and not final_df.empty:
+                final_df.sort_index().to_csv(file_path)
+
+            last_obs = final_df.index.max() if final_df is not None and not final_df.empty else new_df.index.max()
             self._mark_checked(series_id, freq, last_obs, updated=True)
             self.metrics_cache.pop(series_id, None)
             return True, True

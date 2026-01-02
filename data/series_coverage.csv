@@ -1,0 +1,50 @@
+series_id,name,category,freq,start_date,end_date,rows
+AHETPI,Avg Hourly Earnings,labor,M,1980-01-01,2025-11-01,551
+ANFCI,Chi Fed Financial Cond,money,W,1980-01-04,2025-12-26,2400
+BAMLC0A0CM,US Corp OAS (IG),rates,D,1996-12-31,2025-12-30,7664
+BAMLH0A0HYM2,US High Yield OAS,rates,D,1996-12-31,2025-12-30,7664
+BUSLOANS,C&I Loans,money,W,1980-01-01,2025-11-01,551
+CFNAI,Chicago Fed Activity,growth,M,1980-01-01,2025-09-01,549
+CIVPART,Participation Rate,labor,M,1980-01-01,2025-11-01,551
+CPIAUCSL,CPI (Headline),inflation,M,1980-01-01,2025-11-01,551
+CPILFESL,Core CPI,inflation,M,1980-01-01,2025-11-01,551
+CSUSHPINSA,Case-Shiller Price,housing,M,1980-01-01,2025-10-01,550
+DCOILBRENTEU,Brent Crude Oil,commodities,D,1987-05-20,2025-12-29,10074
+DCOILWTICO,WTI Crude Oil,commodities,D,1986-01-02,2025-12-29,10433
+DGORDER,Durable Goods Orders,growth,M,1980-01-01,2025-10-01,550
+DGS10,10Y Treasury,rates,D,1980-01-01,2025-12-30,12001
+DGS2,2Y Treasury,rates,D,1980-01-01,2025-12-30,12001
+DGS30,30Y Treasury,rates,D,1980-01-01,2025-12-30,12001
+DTWEXBGS,USD Broad Index,markets,D,2006-01-02,2025-12-26,5215
+FEDFUNDS,Fed Funds Rate,rates,M,1980-01-01,2025-11-01,551
+GASREGW,Regular Gas Price,commodities,W,1990-08-20,2025-12-29,1846
+GDP,Nominal GDP,growth,Q,1980-01-01,2025-07-01,183
+GDPC1,Real GDP,growth,Q,1980-01-01,2025-07-01,183
+HOUST,Housing Starts,housing,M,1980-01-01,2025-08-01,548
+HSN1F,New Home Sales,housing,M,1980-01-01,2025-08-01,548
+ICSA,Initial Claims,labor,W,1980-01-05,2025-12-27,2400
+INDPRO,Industrial Production,growth,M,1980-01-01,2025-11-01,551
+JTSJOL,Job Openings (JOLTS),labor,M,2000-12-01,2025-10-01,299
+M2SL,M2 Money Supply,money,M,1980-01-01,2025-11-01,551
+MICH,1Y Inflation Exp,inflation,M,1980-01-01,2025-11-01,551
+MORTGAGE30US,30Y Mortgage,rates,W,1980-01-04,2025-12-31,2401
+OILPRICE,WTI Crude (Proxy),inflation,M,1980-01-01,2013-07-01,403
+PALLFNFINDEXM,Global Commodities Index,commodities,M,1992-01-01,2025-06-01,402
+PAYEMS,Nonfarm Payrolls,growth,M,1980-01-01,2025-11-01,551
+PCEPILFE,Core PCE (Fed Target),inflation,M,1980-01-01,2025-09-01,549
+PCOPPUSDM,Global Copper Price,commodities,M,1980-01-01,2025-06-01,546
+PPIFIS,PPI Final Demand,inflation,M,2009-11-01,2025-09-01,191
+RRPONTSYD,Reverse Repo,money,D,2003-02-07,2025-12-31,5974
+RSXFS,Retail Sales (ex Food/Svc),growth,M,1992-01-01,2025-10-01,406
+SP500,S&P 500,markets,D,2016-01-01,2025-12-31,2609
+STLFSI4,St. Louis FSI,markets,W,1993-12-31,2025-12-26,1670
+T10Y2Y,10Y-2Y Curve,rates,D,1980-01-01,2025-12-31,12002
+T10YIE,10Y Breakeven,inflation,D,2003-01-02,2025-12-31,6000
+T5YIE,5Y Breakeven,inflation,D,2003-01-02,2025-12-31,6000
+U6RATE,Underemployment (U6),labor,M,1994-01-01,2025-11-01,383
+UMCSENT,Consumer Sentiment,growth,M,1980-01-01,2025-11-01,551
+UNRATE,Unemployment Rate,labor,M,1980-01-01,2025-11-01,551
+USREC,Recession Prob,growth,M,1980-01-01,2025-12-01,552
+VIXCLS,VIX Volatility,markets,D,1990-01-02,2025-12-30,9391
+WALCL,Fed Assets,money,W,2002-12-18,2025-12-24,1202
+WM2NS,M2 (Weekly),money,W,1980-11-03,2025-12-01,2353

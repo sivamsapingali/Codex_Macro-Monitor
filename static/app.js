@@ -3,9 +3,11 @@ let dashboardData = {};
 let intelligenceData = {};
 let predictionData = {};
 let usageData = {};
+let backtestData = {};
 let currentCategory = 'growth';
 let railChartInstance = null;
 let methodChartInstance = null;
+let backtestChartInstance = null;
 
 // --- Initialization ---
 
@@ -20,6 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         loadPredictions(),
         loadUsage()
     ]);
+    await loadBacktest();
 
     setInterval(async () => {
         await Promise.all([
@@ -29,6 +32,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             loadUsage()
         ]);
     }, 60000);
+
+    setInterval(loadBacktest, 10 * 60 * 1000);
 });
 
 async function forceUpdate() {
@@ -95,7 +100,11 @@ async function loadStatus() {
         const statusText = document.getElementById('status-text');
         const statusMeta = document.getElementById('status-meta');
         if (statusText) statusText.textContent = data.status === 'online' ? 'System Online' : 'System Offline';
-        if (statusMeta) statusMeta.textContent = `${data.data_points || '--'} series`;
+        if (statusMeta) {
+            const mode = data.data_mode ? ` • ${data.data_mode}` : '';
+            const provider = data.market_provider ? ` • ${data.market_provider}` : '';
+            statusMeta.textContent = `${data.data_points || '--'} series${mode}${provider}`;
+        }
     } catch (e) { console.error(e); }
 }
 
@@ -115,7 +124,16 @@ async function loadPredictions() {
         predictionData = await res.json();
         renderSectors();
         renderActionableItems();
+        renderTradeIdeas();
         renderMethodology();
+    } catch (e) { console.error(e); }
+}
+
+async function loadBacktest() {
+    try {
+        const res = await fetch('/api/backtest');
+        backtestData = await res.json();
+        renderBacktest();
     } catch (e) { console.error(e); }
 }
 
@@ -280,7 +298,7 @@ function renderSectors() {
             return;
         }
 
-        const horizonOrder = ['1w', '1m', '3m', '6m', '12m'];
+        const horizonOrder = getHorizonOrder(predictionData.horizons);
         grid.innerHTML = '';
         predictions.forEach(sector => {
             const card = document.createElement('div');
@@ -338,15 +356,15 @@ function renderActionableItems() {
         return;
     }
 
-    const horizons = ['1m', '3m'];
+    const horizons = getHorizonOrder();
     container.innerHTML = '';
 
     horizons.forEach(horizon => {
         const ranked = predictionData.ranked[horizon];
         if (!ranked) return;
 
-        const bullish = ranked.bullish || [];
-        const bearish = ranked.bearish || [];
+        const bullish = ranked.long || ranked.bullish || [];
+        const bearish = ranked.short || ranked.bearish || [];
         const watchlist = Object.values(predictionData.predictions || {})
             .map(sector => {
                 const h = sector.horizons?.[horizon];
@@ -383,6 +401,70 @@ function renderActionableItems() {
     });
 }
 
+function renderTradeIdeas() {
+    const container = document.getElementById('trade-ideas');
+    if (!container) return;
+
+    if (!predictionData || !predictionData.ranked) {
+        container.innerHTML = '<div class="loading">Ranking trade ideas...</div>';
+        return;
+    }
+
+    const horizons = getHorizonOrder();
+    container.innerHTML = '';
+
+    horizons.forEach(horizon => {
+        const ranked = predictionData.ranked[horizon];
+        if (!ranked) return;
+        const bullish = ranked.long || ranked.bullish || [];
+        const bearish = ranked.short || ranked.bearish || [];
+        const items = [
+            ...bullish.map(item => ({ ...item, direction: 'UP' })),
+            ...bearish.map(item => ({ ...item, direction: 'DOWN' })),
+        ];
+        if (!items.length) return;
+
+        const maxAbs = Math.max(
+            ...items.map(item => Math.abs(item.expected_pnl || 0)),
+            1
+        );
+
+        const card = document.createElement('div');
+        card.className = 'trade-card';
+        card.innerHTML = `
+            <div class="action-title">Horizon ${horizon}</div>
+            ${items.map(item => buildTradeRow(item, maxAbs)).join('')}
+        `;
+        container.appendChild(card);
+    });
+}
+
+function buildTradeRow(item, maxAbs) {
+    const expected = item.expected_return || 0;
+    const expectedPnl = item.expected_pnl || 0;
+    const weight = item.position_weight || 0;
+    const direction = item.direction || (expected >= 0 ? 'UP' : 'DOWN');
+    const dirClass = direction === 'DOWN' ? 'down' : '';
+    const width = Math.min(100, Math.abs(expectedPnl) / maxAbs * 100);
+    const conf = Math.round((item.confidence || 0) * 100);
+    return `
+        <div class="trade-row">
+            <div class="trade-symbol">
+                <span>${item.symbol}</span>
+                <span class="trade-direction">${direction === 'DOWN' ? 'Short' : 'Long'}</span>
+            </div>
+            <div class="trade-bar">
+                <div class="trade-bar-fill ${dirClass}" style="width: ${width}%;"></div>
+            </div>
+            <div class="trade-metrics">
+                <span>${formatCurrency(expectedPnl)}</span>
+                <span>${formatPercent(weight)} size</span>
+                <span>${conf}% conf</span>
+            </div>
+        </div>
+    `;
+}
+
 function renderMethodology() {
     const usageEl = document.getElementById('data-usage');
     const powerEl = document.getElementById('model-power');
@@ -415,21 +497,94 @@ function renderMethodology() {
         } else {
             const rows = buildPowerRows(metrics);
             const asOf = predictionData?.as_of ? `As of ${predictionData.as_of}` : '';
-            powerEl.innerHTML = `${rows}<div class="text-muted">${asOf}</div>`;
+            const mix = metrics.model_mix ? `Model mix: ${metrics.model_mix}` : '';
+            powerEl.innerHTML = `${rows}<div class="text-muted">${[asOf, mix].filter(Boolean).join(' | ')}</div>`;
         }
     }
 
     if (summaryEl) {
         const stats = computeHorizonStats();
         if (!stats) {
-            summaryEl.textContent = 'Waiting on backtest stats...';
+            summaryEl.textContent = 'Model metrics loading...';
         } else {
-            const avgAcc = average(Object.values(stats).map(s => s.accuracy));
-            const avgEdge = avgAcc - 0.5;
-            summaryEl.textContent = `Average out-of-sample accuracy: ${(avgAcc * 100).toFixed(1)}% (edge ${(avgEdge * 100).toFixed(1)}% over random).`;
+            const avgBal = average(Object.values(stats).map(s => s.balanced_accuracy || s.accuracy));
+            const avgAuc = average(Object.values(stats).map(s => s.auc || 0));
+            const avgEdge = avgBal - 0.5;
+            summaryEl.textContent = `Avg balanced accuracy: ${(avgBal * 100).toFixed(1)}% (edge ${(avgEdge * 100).toFixed(1)}%), avg AUC ${(avgAuc * 100).toFixed(1)}%.`;
             renderMethodologyChart(stats);
         }
     }
+}
+
+function renderBacktest() {
+    const summaryEl = document.getElementById('backtest-summary');
+    const chartEl = document.getElementById('backtest-chart');
+    if (!summaryEl || !chartEl) return;
+
+    if (!backtestData || !backtestData.backtests) {
+        summaryEl.textContent = 'Backtest loading...';
+        return;
+    }
+
+    const backtests = backtestData.backtests || {};
+    const window = backtestData.window || {};
+    const horizonOrder = getHorizonOrder();
+    let horizons = horizonOrder.filter(h => backtests[h] && backtests[h].equity_curve?.length);
+    if (!horizons.length) {
+        horizons = Object.keys(backtests).filter(h => backtests[h].equity_curve?.length).slice(0, 3);
+    }
+
+    const summaries = Object.entries(backtests)
+        .map(([h, data]) => ({ horizon: h, stats: data.stats || {} }))
+        .filter(item => item.stats.total_pnl !== undefined);
+
+    if (!summaries.length) {
+        summaryEl.textContent = 'Backtest unavailable for current data window.';
+    } else {
+        summaries.sort((a, b) => (b.stats.total_return || 0) - (a.stats.total_return || 0));
+        const best = summaries[0];
+        const windowText = window.start && window.end ? `Window ${window.start} → ${window.end}` : '';
+        summaryEl.textContent = `Best horizon ${best.horizon}: ${formatCurrency(best.stats.total_pnl || 0)} total P&L, drawdown ${formatCurrency(best.stats.max_drawdown || 0)}, hit rate ${formatPercent(best.stats.hit_rate || 0)} (${best.stats.trades || 0} trades). ${windowText}`;
+    }
+
+    const dateSet = new Set();
+    horizons.forEach(h => {
+        (backtests[h].equity_curve || []).forEach(pt => dateSet.add(pt.date));
+    });
+    const labels = Array.from(dateSet).sort();
+
+    const colors = ['rgba(44, 255, 159, 0.8)', 'rgba(120, 200, 255, 0.8)', 'rgba(242, 95, 92, 0.8)'];
+    const datasets = horizons.map((h, idx) => {
+        const curveMap = new Map((backtests[h].equity_curve || []).map(pt => [pt.date, pt.equity]));
+        const data = labels.map(label => curveMap.get(label) ?? null);
+        return {
+            label: h,
+            data,
+            borderColor: colors[idx % colors.length],
+            borderWidth: 2,
+            pointRadius: 0,
+            tension: 0.25,
+            spanGaps: true,
+        };
+    });
+
+    if (backtestChartInstance) {
+        backtestChartInstance.destroy();
+    }
+
+    backtestChartInstance = new Chart(chartEl, {
+        type: 'line',
+        data: { labels, datasets },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: true, labels: { color: '#7a8597' } } },
+            scales: {
+                x: { ticks: { color: '#7a8597' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                y: { ticks: { color: '#7a8597' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+            }
+        }
+    });
 }
 
 function collectModelMetrics() {
@@ -437,26 +592,45 @@ function collectModelMetrics() {
 
     const horizons = Object.keys(predictionData.horizons || {});
     let acc = 0;
+    let balanced = 0;
     let precision = 0;
     let recall = 0;
+    let auc = 0;
+    let aucCount = 0;
     let count = 0;
+    const modelCounts = {};
 
     Object.values(predictionData.predictions).forEach(sector => {
         horizons.forEach(h => {
             const metrics = sector.horizons?.[h]?.metrics;
             if (!metrics) return;
             acc += metrics.accuracy || 0;
+            balanced += metrics.balanced_accuracy || 0;
             precision += metrics.precision || 0;
             recall += metrics.recall || 0;
+            if (metrics.auc !== null && metrics.auc !== undefined) {
+                auc += metrics.auc || 0;
+                aucCount += 1;
+            }
+            if (metrics.model) {
+                modelCounts[metrics.model] = (modelCounts[metrics.model] || 0) + 1;
+            }
             count += 1;
         });
     });
 
     if (!count) return null;
+    const modelMix = Object.entries(modelCounts)
+        .sort((a, b) => b[1] - a[1])
+        .map(([model, n]) => `${model}:${n}`)
+        .join(' • ');
     return {
         accuracy: acc / count,
+        balanced_accuracy: balanced / count,
         precision: precision / count,
         recall: recall / count,
+        auc: aucCount ? auc / aucCount : null,
+        model_mix: modelMix || null,
         samples: count
     };
 }
@@ -467,7 +641,7 @@ function computeHorizonStats() {
     const stats = {};
 
     horizons.forEach(h => {
-        stats[h] = { accuracy: 0, precision: 0, recall: 0, count: 0 };
+        stats[h] = { accuracy: 0, balanced_accuracy: 0, precision: 0, recall: 0, auc: 0, aucCount: 0, count: 0 };
     });
 
     Object.values(predictionData.predictions).forEach(sector => {
@@ -475,8 +649,13 @@ function computeHorizonStats() {
             const metrics = sector.horizons?.[h]?.metrics;
             if (!metrics) return;
             stats[h].accuracy += metrics.accuracy || 0;
+            stats[h].balanced_accuracy += metrics.balanced_accuracy || 0;
             stats[h].precision += metrics.precision || 0;
             stats[h].recall += metrics.recall || 0;
+            if (metrics.auc !== null && metrics.auc !== undefined) {
+                stats[h].auc += metrics.auc || 0;
+                stats[h].aucCount += 1;
+            }
             stats[h].count += 1;
         });
     });
@@ -484,8 +663,10 @@ function computeHorizonStats() {
     horizons.forEach(h => {
         if (stats[h].count) {
             stats[h].accuracy /= stats[h].count;
+            stats[h].balanced_accuracy /= stats[h].count;
             stats[h].precision /= stats[h].count;
             stats[h].recall /= stats[h].count;
+            stats[h].auc = stats[h].aucCount ? stats[h].auc / stats[h].aucCount : null;
         }
     });
 
@@ -496,7 +677,8 @@ function renderMethodologyChart(stats) {
     const ctx = document.getElementById('method-accuracy-chart');
     if (!ctx) return;
     const labels = Object.keys(stats);
-    const accuracy = labels.map(label => stats[label].accuracy || 0);
+    const accuracy = labels.map(label => stats[label].balanced_accuracy || stats[label].accuracy || 0);
+    const auc = labels.map(label => stats[label].auc || 0);
     const baseline = labels.map(() => 0.5);
 
     if (methodChartInstance) {
@@ -509,7 +691,7 @@ function renderMethodologyChart(stats) {
             datasets: [
                 {
                     type: 'bar',
-                    label: 'OOS Accuracy',
+                    label: 'Balanced Accuracy',
                     data: accuracy,
                     backgroundColor: 'rgba(44, 255, 159, 0.4)',
                     borderColor: 'rgba(44, 255, 159, 0.8)',
@@ -517,11 +699,21 @@ function renderMethodologyChart(stats) {
                 },
                 {
                     type: 'line',
-                    label: 'Random 50%',
-                    data: baseline,
-                    borderColor: 'rgba(255, 255, 255, 0.4)',
+                    label: 'AUC',
+                    data: auc,
+                    borderColor: 'rgba(120, 200, 255, 0.7)',
                     borderWidth: 1,
                     pointRadius: 0,
+                    tension: 0.3,
+                },
+                {
+                    type: 'line',
+                    label: 'Random 50%',
+                    data: baseline,
+                    borderColor: 'rgba(255, 255, 255, 0.35)',
+                    borderWidth: 1,
+                    pointRadius: 0,
+                    borderDash: [4, 4],
                 }
             ]
         },
@@ -545,17 +737,19 @@ function renderMethodologyChart(stats) {
 function buildPowerRows(metrics) {
     const rows = [
         { label: 'Directional Accuracy', value: metrics.accuracy },
+        { label: 'Balanced Accuracy', value: metrics.balanced_accuracy || metrics.accuracy },
         { label: 'Precision', value: metrics.precision },
-        { label: 'Recall', value: metrics.recall }
+        { label: 'Recall', value: metrics.recall },
+        { label: 'AUC', value: metrics.auc }
     ];
 
     return rows.map(row => {
-        const percent = Math.round(row.value * 100);
+        const percent = row.value === null ? '--' : Math.round(row.value * 100);
         return `
             <div class="power-row">
                 <div class="power-label">${row.label}</div>
-                <div class="bar"><div class="bar-fill" style="width: ${percent}%;"></div></div>
-                <div class="text-muted">${percent}%</div>
+                <div class="bar"><div class="bar-fill" style="width: ${percent === '--' ? 0 : percent}%;"></div></div>
+                <div class="text-muted">${percent === '--' ? '--' : `${percent}%`}</div>
             </div>
         `;
     }).join('');
@@ -704,11 +898,27 @@ function formatPercent(val) {
     return `${(Number(val) * 100).toFixed(1)}%`;
 }
 
+function formatCurrency(val) {
+    if (val === null || val === undefined || Number.isNaN(val)) return '--';
+    const abs = Math.abs(val);
+    const sign = val < 0 ? '-' : '';
+    if (abs >= 1_000_000) return `${sign}$${(abs / 1_000_000).toFixed(2)}M`;
+    if (abs >= 1_000) return `${sign}$${(abs / 1_000).toFixed(1)}K`;
+    return `${sign}$${abs.toFixed(0)}`;
+}
+
 function hexToRgba(hex, alpha) {
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);
     const b = parseInt(hex.slice(5, 7), 16);
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+function getHorizonOrder(horizonMap) {
+    const map = horizonMap || predictionData?.horizons || {};
+    return Object.entries(map)
+        .sort((a, b) => (a[1] || 0) - (b[1] || 0))
+        .map(([key]) => key);
 }
 
 function average(values) {

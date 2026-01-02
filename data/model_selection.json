@@ -1,0 +1,1830 @@
+{
+  "meta": {
+    "deadband": 0.25,
+    "feature_groups": [
+      "macro_core",
+      "macro_sector",
+      "macro_all",
+      "sector_tech",
+      "macro_core_plus_tech",
+      "macro_sector_plus_tech",
+      "macro_all_plus_tech"
+    ],
+    "generated_at": "2026-01-03 00:52",
+    "metric": "balanced_accuracy",
+    "min_samples": 180,
+    "models": [
+      "logistic",
+      "mlp",
+      "gboost",
+      "hist_gb"
+    ],
+    "test_window_weeks": 13
+  },
+  "selections": {
+    "XLB": {
+      "1m": {
+        "candidates": [
+          {
+            "feature_cols": 8,
+            "feature_group": "sector_tech",
+            "feature_hash": "c306328b87fa27cd723429e18db6f4cfc4c8d13f4f3b47ace32c654d6b6c9033",
+            "metrics": {
+              "accuracy": 0.46153846153846156,
+              "auc": 0.6143939393939394,
+              "balanced_accuracy": 0.665909090909091,
+              "precision": 1.0,
+              "recall": 0.3318181818181818,
+              "samples": 859,
+              "splits": 2,
+              "threshold": 0.5249999999999999
+            },
+            "model": "gboost",
+            "samples": 859,
+            "score": 0.665909090909091,
+            "threshold": 0.5249999999999999
+          },
+          {
+            "feature_cols": 44,
+            "feature_group": "macro_sector_plus_tech",
+            "feature_hash": "a329ff6d3964d434e4f1048413821b69d9b9daa51ba31d8379d5d10766a5fa4b",
+            "metrics": {
+              "accuracy": 0.6923076923076923,
+              "auc": 0.8757575757575757,
+              "balanced_accuracy": 0.6363636363636364,
+              "precision": 0.8846153846153846,
+              "recall": 0.7727272727272727,
+              "samples": 859,
+              "splits": 2,
+              "threshold": 0.4375
+            },
+            "model": "logistic",
+            "samples": 859,
+            "score": 0.6363636363636364,
+            "threshold": 0.4375
+          },
+          {
+            "feature_cols": 44,
+            "feature_group": "macro_sector_plus_tech",
+            "feature_hash": "a329ff6d3964d434e4f1048413821b69d9b9daa51ba31d8379d5d10766a5fa4b",
+            "metrics": {
+              "accuracy": 0.8076923076923077,
+              "auc": 0.6954545454545455,
+              "balanced_accuracy": 0.6022727272727273,
+              "precision": 0.8391608391608392,
+              "recall": 0.9545454545454546,
+              "samples": 859,
+              "splits": 2,
+              "threshold": 0.35
+            },
+            "model": "hist_gb",
+            "samples": 859,
+            "score": 0.6022727272727273,
+            "threshold": 0.35
+          }
+        ],
+        "feature_cols": 8,
+        "feature_group": "sector_tech",
+        "feature_hash": "c306328b87fa27cd723429e18db6f4cfc4c8d13f4f3b47ace32c654d6b6c9033",
+        "metrics": {
+          "accuracy": 0.46153846153846156,
+          "auc": 0.6143939393939394,
+          "balanced_accuracy": 0.665909090909091,
+          "precision": 1.0,
+          "recall": 0.3318181818181818,
+          "samples": 859,
+          "splits": 2,
+          "threshold": 0.5249999999999999
+        },
+        "model": "gboost",
+        "name": "Materials",
+        "samples": 859,
+        "score": 0.665909090909091,
+        "symbol": "XLB",
+        "threshold": 0.5249999999999999,
+        "updated_at": "2026-01-03 00:27"
+      },
+      "1w": {
+        "candidates": [
+          {
+            "feature_cols": 20,
+            "feature_group": "macro_core",
+            "feature_hash": "e63d82848b01edade7809d0836d52961e152a9a959b7845a71bc4d1dbd6b95fb",
+            "metrics": {
+              "accuracy": 0.7692307692307693,
+              "auc": 0.6041666666666667,
+              "balanced_accuracy": 0.6666666666666666,
+              "precision": 0.7622377622377623,
+              "recall": 1.0,
+              "samples": 846,
+              "splits": 2,
+              "threshold": 0.4625
+            },
+            "model": "logistic",
+            "samples": 846,
+            "score": 0.6666666666666666,
+            "threshold": 0.4625
+          },
+          {
+            "feature_cols": 20,
+            "feature_group": "macro_core",
+            "feature_hash": "e63d82848b01edade7809d0836d52961e152a9a959b7845a71bc4d1dbd6b95fb",
+            "metrics": {
+              "accuracy": 0.5,
+              "auc": 0.7208333333333333,
+              "balanced_accuracy": 0.575,
+              "precision": 0.8333333333333333,
+              "recall": 0.55,
+              "samples": 846,
+              "splits": 2,
+              "threshold": 0.5
+            },
+            "model": "hist_gb",
+            "samples": 846,
+            "score": 0.575,
+            "threshold": 0.5
+          },
+          {
+            "feature_cols": 44,
+            "feature_group": "macro_sector_plus_tech",
+            "feature_hash": "b340d9d77df44aaf6674881f4665ecf0d9b99de51ea45f40d61b689518b7d8fe",
+            "metrics": {
+              "accuracy": 0.5,
+              "auc": 0.40909090909090906,
+              "balanced_accuracy": 0.5681818181818181,
+              "precision": 0.8076923076923077,
+              "recall": 0.6363636363636364,
+              "samples": 845,
+              "splits": 2,
+              "threshold": 0.4125
+            },
+            "model": "logistic",
+            "samples": 845,
+            "score": 0.5681818181818181,
+            "threshold": 0.4125
+          }
+        ],
+        "feature_cols": 20,
+        "feature_group": "macro_core",
+        "feature_hash": "e63d82848b01edade7809d0836d52961e152a9a959b7845a71bc4d1dbd6b95fb",
+        "metrics": {
+          "accuracy": 0.7692307692307693,
+          "auc": 0.6041666666666667,
+          "balanced_accuracy": 0.6666666666666666,
+          "precision": 0.7622377622377623,
+          "recall": 1.0,
+          "samples": 846,
+          "splits": 2,
+          "threshold": 0.4625
+        },
+        "model": "logistic",
+        "name": "Materials",
+        "samples": 846,
+        "score": 0.6666666666666666,
+        "symbol": "XLB",
+        "threshold": 0.4625,
+        "updated_at": "2026-01-03 00:26"
+      }
+    },
+    "XLC": {
+      "1m": {
+        "candidates": [
+          {
+            "feature_cols": 40,
+            "feature_group": "macro_sector_plus_tech",
+            "feature_hash": "e2fa16d29b53ae982c71f66319dce367e1e09dbddeebf92f5ed0de89220a7530",
+            "metrics": {
+              "accuracy": 0.5769230769230769,
+              "auc": 0.48035714285714287,
+              "balanced_accuracy": 0.5809523809523809,
+              "precision": 0.5227272727272727,
+              "recall": 0.8285714285714285,
+              "samples": 311,
+              "splits": 2,
+              "threshold": 0.35
+            },
+            "model": "hist_gb",
+            "samples": 311,
+            "score": 0.5809523809523809,
+            "threshold": 0.35
+          },
+          {
+            "feature_cols": 40,
+            "feature_group": "macro_sector_plus_tech",
+            "feature_hash": "e2fa16d29b53ae982c71f66319dce367e1e09dbddeebf92f5ed0de89220a7530",
+            "metrics": {
+              "accuracy": 0.5384615384615385,
+              "auc": 0.4505952380952381,
+              "balanced_accuracy": 0.5473214285714286,
+              "precision": 0.5,
+              "recall": 0.6571428571428571,
+              "samples": 311,
+              "splits": 2,
+              "threshold": 0.55
+            },
+            "model": "logistic",
+            "samples": 311,
+            "score": 0.5473214285714286,
+            "threshold": 0.55
+          },
+          {
+            "feature_cols": 32,
+            "feature_group": "macro_sector",
+            "feature_hash": "aca1366d47178979846a42733bb85f192b5e50d8f696cf3f16905ad30cf59eda",
+            "metrics": {
+              "accuracy": 0.5384615384615384,
+              "auc": 0.5398809523809525,
+              "balanced_accuracy": 0.5291666666666667,
+              "precision": 0.46031746031746035,
+              "recall": 0.6,
+              "samples": 311,
+              "splits": 2,
+              "threshold": 0.375
+            },
+            "model": "logistic",
+            "samples": 311,
+            "score": 0.5291666666666667,
+            "threshold": 0.375
+          }
+        ],
+        "feature_cols": 40,
+        "feature_group": "macro_sector_plus_tech",
+        "feature_hash": "e2fa16d29b53ae982c71f66319dce367e1e09dbddeebf92f5ed0de89220a7530",
+        "metrics": {
+          "accuracy": 0.5769230769230769,
+          "auc": 0.48035714285714287,
+          "balanced_accuracy": 0.5809523809523809,
+          "precision": 0.5227272727272727,
+          "recall": 0.8285714285714285,
+          "samples": 311,
+          "splits": 2,
+          "threshold": 0.35
+        },
+        "model": "hist_gb",
+        "name": "Communication Services",
+        "samples": 311,
+        "score": 0.5809523809523809,
+        "symbol": "XLC",
+        "threshold": 0.35,
+        "updated_at": "2026-01-03 00:27"
+      },
+      "1w": {
+        "candidates": [
+          {
+            "feature_cols": 8,
+            "feature_group": "sector_tech",
+            "feature_hash": "1bfddbf1172ad7a36fcc879efb8a1c6ac75fe4bb7d88d541ab3225db66927129",
+            "metrics": {
+              "accuracy": 0.6923076923076923,
+              "auc": 0.675,
+              "balanced_accuracy": 0.65625,
+              "precision": 0.9166666666666667,
+              "recall": 0.4125,
+              "samples": 303,
+              "splits": 2,
+              "threshold": 0.5625
+            },
+            "model": "hist_gb",
+            "samples": 303,
+            "score": 0.65625,
+            "threshold": 0.5625
+          },
+          {
+            "feature_cols": 32,
+            "feature_group": "macro_sector",
+            "feature_hash": "5d584fd951a1445caf9107f6977792ff7e802c1f3a3cd15821c0fc13545950c3",
+            "metrics": {
+              "accuracy": 0.46153846153846156,
+              "auc": 0.4777777777777778,
+              "balanced_accuracy": 0.5902777777777778,
+              "precision": 0.6666666666666666,
+              "recall": 0.625,
+              "samples": 304,
+              "splits": 2,
+              "threshold": 0.44999999999999996
+            },
+            "model": "logistic",
+            "samples": 304,
+            "score": 0.5902777777777778,
+            "threshold": 0.44999999999999996
+          },
+          {
+            "feature_cols": 8,
+            "feature_group": "sector_tech",
+            "feature_hash": "1bfddbf1172ad7a36fcc879efb8a1c6ac75fe4bb7d88d541ab3225db66927129",
+            "metrics": {
+              "accuracy": 0.5769230769230769,
+              "auc": 0.6375,
+              "balanced_accuracy": 0.58125,
+              "precision": 0.625,
+              "recall": 0.3875,
+              "samples": 303,
+              "splits": 2,
+              "threshold": 0.525
+            },
+            "model": "gboost",
+            "samples": 303,
+            "score": 0.58125,
+            "threshold": 0.525
+          }
+        ],
+        "feature_cols": 8,
+        "feature_group": "sector_tech",
+        "feature_hash": "1bfddbf1172ad7a36fcc879efb8a1c6ac75fe4bb7d88d541ab3225db66927129",
+        "metrics": {
+          "accuracy": 0.6923076923076923,
+          "auc": 0.675,
+          "balanced_accuracy": 0.65625,
+          "precision": 0.9166666666666667,
+          "recall": 0.4125,
+          "samples": 303,
+          "splits": 2,
+          "threshold": 0.5625
+        },
+        "model": "hist_gb",
+        "name": "Communication Services",
+        "samples": 303,
+        "score": 0.65625,
+        "symbol": "XLC",
+        "threshold": 0.5625,
+        "updated_at": "2026-01-03 00:26"
+      }
+    },
+    "XLE": {
+      "1m": {
+        "candidates": [
+          {
+            "feature_cols": 204,
+            "feature_group": "macro_all_plus_tech",
+            "feature_hash": "29693a4b0cd9ce903a347dd35c917541ffde2aa775b1654f0d1b04f0b466cbd2",
+            "metrics": {
+              "accuracy": 0.7435897435897436,
+              "auc": 0.9259259259259259,
+              "balanced_accuracy": 0.7842592592592593,
+              "precision": 0.8888888888888888,
+              "recall": 0.762962962962963,
+              "samples": 860,
+              "splits": 3,
+              "threshold": 0.35
+            },
+            "model": "logistic",
+            "samples": 860,
+            "score": 0.7842592592592593,
+            "threshold": 0.35
+          },
+          {
+            "feature_cols": 40,
+            "feature_group": "macro_core_plus_tech",
+            "feature_hash": "439d6816a82a0fdf936fc769b3b1bc1e20f349c1bde0ea9cbaee67dce23c051a",
+            "metrics": {
+              "accuracy": 0.7435897435897436,
+              "auc": 0.784126984126984,
+              "balanced_accuracy": 0.6759259259259259,
+              "precision": 0.8230769230769232,
+              "recall": 0.8518518518518517,
+              "samples": 860,
+              "splits": 3,
+              "threshold": 0.525
+            },
+            "model": "logistic",
+            "samples": 860,
+            "score": 0.6759259259259259,
+            "threshold": 0.525
+          },
+          {
+            "feature_cols": 20,
+            "feature_group": "macro_core",
+            "feature_hash": "98df6aabf2a031c5814e673ee084cc475af03eade56fb3ab1c4c6398e7fd4ccc",
+            "metrics": {
+              "accuracy": 0.6666666666666666,
+              "auc": 0.5539682539682539,
+              "balanced_accuracy": 0.6333333333333333,
+              "precision": 0.9090909090909092,
+              "recall": 0.6,
+              "samples": 861,
+              "splits": 3,
+              "threshold": 0.65
+            },
+            "model": "logistic",
+            "samples": 861,
+            "score": 0.6333333333333333,
+            "threshold": 0.65
+          }
+        ],
+        "feature_cols": 204,
+        "feature_group": "macro_all_plus_tech",
+        "feature_hash": "29693a4b0cd9ce903a347dd35c917541ffde2aa775b1654f0d1b04f0b466cbd2",
+        "metrics": {
+          "accuracy": 0.7435897435897436,
+          "auc": 0.9259259259259259,
+          "balanced_accuracy": 0.7842592592592593,
+          "precision": 0.8888888888888888,
+          "recall": 0.762962962962963,
+          "samples": 860,
+          "splits": 3,
+          "threshold": 0.35
+        },
+        "model": "logistic",
+        "name": "Energy",
+        "samples": 860,
+        "score": 0.7842592592592593,
+        "symbol": "XLE",
+        "threshold": 0.35,
+        "updated_at": "2026-01-03 00:52"
+      },
+      "1w": {
+        "candidates": [
+          {
+            "feature_cols": 20,
+            "feature_group": "macro_core",
+            "feature_hash": "0a7291ebbce582b7a0d4c97a03338741d45ba4cb3a4503310441f0c311bd30d6",
+            "metrics": {
+              "accuracy": 0.5769230769230769,
+              "auc": 0.6630952380952381,
+              "balanced_accuracy": 0.5997023809523809,
+              "precision": 0.7727272727272727,
+              "recall": 0.6160714285714286,
+              "samples": 869,
+              "splits": 2,
+              "threshold": 0.5125
+            },
+            "model": "hist_gb",
+            "samples": 869,
+            "score": 0.5997023809523809,
+            "threshold": 0.5125
+          },
+          {
+            "feature_cols": 8,
+            "feature_group": "sector_tech",
+            "feature_hash": "bb560510e7d81ce73eec55318d0ef73dd57df5be4ca7127fd7896fa023f4a8c5",
+            "metrics": {
+              "accuracy": 0.5384615384615385,
+              "auc": 0.5625,
+              "balanced_accuracy": 0.5511904761904762,
+              "precision": 0.65,
+              "recall": 0.5357142857142857,
+              "samples": 868,
+              "splits": 2,
+              "threshold": 0.5
+            },
+            "model": "hist_gb",
+            "samples": 868,
+            "score": 0.5511904761904762,
+            "threshold": 0.5
+          },
+          {
+            "feature_cols": 8,
+            "feature_group": "sector_tech",
+            "feature_hash": "bb560510e7d81ce73eec55318d0ef73dd57df5be4ca7127fd7896fa023f4a8c5",
+            "metrics": {
+              "accuracy": 0.5,
+              "auc": 0.6232142857142857,
+              "balanced_accuracy": 0.5491071428571428,
+              "precision": 0.7857142857142857,
+              "recall": 0.3482142857142857,
+              "samples": 868,
+              "splits": 2,
+              "threshold": 0.5625
+            },
+            "model": "gboost",
+            "samples": 868,
+            "score": 0.5491071428571428,
+            "threshold": 0.5625
+          }
+        ],
+        "feature_cols": 20,
+        "feature_group": "macro_core",
+        "feature_hash": "0a7291ebbce582b7a0d4c97a03338741d45ba4cb3a4503310441f0c311bd30d6",
+        "metrics": {
+          "accuracy": 0.5769230769230769,
+          "auc": 0.6630952380952381,
+          "balanced_accuracy": 0.5997023809523809,
+          "precision": 0.7727272727272727,
+          "recall": 0.6160714285714286,
+          "samples": 869,
+          "splits": 2,
+          "threshold": 0.5125
+        },
+        "model": "hist_gb",
+        "name": "Energy",
+        "samples": 869,
+        "score": 0.5997023809523809,
+        "symbol": "XLE",
+        "threshold": 0.5125,
+        "updated_at": "2026-01-03 00:26"
+      }
+    },
+    "XLF": {
+      "1m": {
+        "candidates": [
+          {
+            "feature_cols": 44,
+            "feature_group": "macro_sector",
+            "feature_hash": "bc6002c55cc3e447f14a888284b9c6461f499b89dac9f7c4298f21befb2ea9de",
+            "metrics": {
+              "accuracy": 0.6538461538461539,
+              "auc": 0.7833333333333333,
+              "balanced_accuracy": 0.671969696969697,
+              "precision": 0.9090909090909092,
+              "recall": 0.6772727272727272,
+              "samples": 846,
+              "splits": 2,
+              "threshold": 0.5125
+            },
+            "model": "gboost",
+            "samples": 846,
+            "score": 0.671969696969697,
+            "threshold": 0.5125
+          },
+          {
+            "feature_cols": 52,
+            "feature_group": "macro_sector_plus_tech",
+            "feature_hash": "77c1b180e4d8fd4c6ad794d430e56835dfb830fe2e08a1738785c481675a1920",
+            "metrics": {
+              "accuracy": 0.6923076923076923,
+              "auc": 0.7833333333333333,
+              "balanced_accuracy": 0.6318181818181818,
+              "precision": 0.8636363636363636,
+              "recall": 0.7636363636363637,
+              "samples": 845,
+              "splits": 2,
+              "threshold": 0.35
+            },
+            "model": "hist_gb",
+            "samples": 845,
+            "score": 0.6318181818181818,
+            "threshold": 0.35
+          },
+          {
+            "feature_cols": 8,
+            "feature_group": "sector_tech",
+            "feature_hash": "7a8ee4ac62a778327a9219b23cd57f04049c3ebbed21cb276cc143e818d55b24",
+            "metrics": {
+              "accuracy": 0.38461538461538464,
+              "auc": 0.8924242424242425,
+              "balanced_accuracy": 0.625,
+              "precision": 0.5,
+              "recall": 0.25,
+              "samples": 845,
+              "splits": 2,
+              "threshold": 0.5125
+            },
+            "model": "hist_gb",
+            "samples": 845,
+            "score": 0.625,
+            "threshold": 0.5125
+          }
+        ],
+        "feature_cols": 44,
+        "feature_group": "macro_sector",
+        "feature_hash": "bc6002c55cc3e447f14a888284b9c6461f499b89dac9f7c4298f21befb2ea9de",
+        "metrics": {
+          "accuracy": 0.6538461538461539,
+          "auc": 0.7833333333333333,
+          "balanced_accuracy": 0.671969696969697,
+          "precision": 0.9090909090909092,
+          "recall": 0.6772727272727272,
+          "samples": 846,
+          "splits": 2,
+          "threshold": 0.5125
+        },
+        "model": "gboost",
+        "name": "Financials",
+        "samples": 846,
+        "score": 0.671969696969697,
+        "symbol": "XLF",
+        "threshold": 0.5125,
+        "updated_at": "2026-01-03 00:27"
+      },
+      "1w": {
+        "candidates": [
+          {
+            "feature_cols": 184,
+            "feature_group": "macro_all",
+            "feature_hash": "5434b459269e275bb577bc2bb8769768d5a2631d8dc6a861d7573530adeeed6b",
+            "metrics": {
+              "accuracy": 0.717948717948718,
+              "auc": 0.6883597883597884,
+              "balanced_accuracy": 0.6634920634920635,
+              "precision": 0.7380952380952381,
+              "recall": 0.8214285714285715,
+              "samples": 833,
+              "splits": 3,
+              "threshold": 0.35
+            },
+            "model": "hist_gb",
+            "samples": 833,
+            "score": 0.6634920634920635,
+            "threshold": 0.35
+          },
+          {
+            "feature_cols": 40,
+            "feature_group": "macro_core_plus_tech",
+            "feature_hash": "be29ad014ccac7b170f347c7d7e03ee86eeb8be99bb39f806f9f48757e33236b",
+            "metrics": {
+              "accuracy": 0.5641025641025642,
+              "auc": 0.6474867724867726,
+              "balanced_accuracy": 0.5672619047619047,
+              "precision": 0.6592592592592593,
+              "recall": 0.5456349206349206,
+              "samples": 832,
+              "splits": 3,
+              "threshold": 0.425
+            },
+            "model": "hist_gb",
+            "samples": 832,
+            "score": 0.5672619047619047,
+            "threshold": 0.425
+          },
+          {
+            "feature_cols": 64,
+            "feature_group": "macro_sector_plus_tech",
+            "feature_hash": "1f53d3e177e2bb61128e2174e68330c663bde455b11f9db2badf769fb3312a35",
+            "metrics": {
+              "accuracy": 0.4871794871794872,
+              "auc": 0.705952380952381,
+              "balanced_accuracy": 0.5382936507936508,
+              "precision": 0.4518518518518519,
+              "recall": 0.3988095238095238,
+              "samples": 832,
+              "splits": 3,
+              "threshold": 0.5
+            },
+            "model": "logistic",
+            "samples": 832,
+            "score": 0.5382936507936508,
+            "threshold": 0.5
+          }
+        ],
+        "feature_cols": 184,
+        "feature_group": "macro_all",
+        "feature_hash": "5434b459269e275bb577bc2bb8769768d5a2631d8dc6a861d7573530adeeed6b",
+        "metrics": {
+          "accuracy": 0.717948717948718,
+          "auc": 0.6883597883597884,
+          "balanced_accuracy": 0.6634920634920635,
+          "precision": 0.7380952380952381,
+          "recall": 0.8214285714285715,
+          "samples": 833,
+          "splits": 3,
+          "threshold": 0.35
+        },
+        "model": "hist_gb",
+        "name": "Financials",
+        "samples": 833,
+        "score": 0.6634920634920635,
+        "symbol": "XLF",
+        "threshold": 0.35,
+        "updated_at": "2026-01-03 00:52"
+      }
+    },
+    "XLI": {
+      "1m": {
+        "candidates": [
+          {
+            "feature_cols": 40,
+            "feature_group": "macro_core_plus_tech",
+            "feature_hash": "2a84682034dfd99b614b6680518a17a38c5ed9a025a205bef15658fd19fc228b",
+            "metrics": {
+              "accuracy": 0.7692307692307692,
+              "auc": 0.8118686868686869,
+              "balanced_accuracy": 0.7064393939393939,
+              "precision": 0.8831168831168831,
+              "recall": 0.7878787878787878,
+              "samples": 837,
+              "splits": 2,
+              "threshold": 0.5125
+            },
+            "model": "logistic",
+            "samples": 837,
+            "score": 0.7064393939393939,
+            "threshold": 0.5125
+          },
+          {
+            "feature_cols": 40,
+            "feature_group": "macro_core_plus_tech",
+            "feature_hash": "2a84682034dfd99b614b6680518a17a38c5ed9a025a205bef15658fd19fc228b",
+            "metrics": {
+              "accuracy": 0.6538461538461539,
+              "auc": 0.7083333333333333,
+              "balanced_accuracy": 0.7058080808080808,
+              "precision": 0.8888888888888888,
+              "recall": 0.6616161616161615,
+              "samples": 837,
+              "splits": 2,
+              "threshold": 0.6000000000000001
+            },
+            "model": "gboost",
+            "samples": 837,
+            "score": 0.7058080808080808,
+            "threshold": 0.6000000000000001
+          },
+          {
+            "feature_cols": 20,
+            "feature_group": "macro_core",
+            "feature_hash": "ba226d51992e4ab6979f42a578b83eca76308c8a84d7c81dabc549bf2d7a783b",
+            "metrics": {
+              "accuracy": 0.7692307692307693,
+              "auc": 0.6818181818181819,
+              "balanced_accuracy": 0.6767676767676768,
+              "precision": 0.8500000000000001,
+              "recall": 0.8535353535353536,
+              "samples": 837,
+              "splits": 2,
+              "threshold": 0.5
+            },
+            "model": "gboost",
+            "samples": 837,
+            "score": 0.6767676767676768,
+            "threshold": 0.5
+          }
+        ],
+        "feature_cols": 40,
+        "feature_group": "macro_core_plus_tech",
+        "feature_hash": "2a84682034dfd99b614b6680518a17a38c5ed9a025a205bef15658fd19fc228b",
+        "metrics": {
+          "accuracy": 0.7692307692307692,
+          "auc": 0.8118686868686869,
+          "balanced_accuracy": 0.7064393939393939,
+          "precision": 0.8831168831168831,
+          "recall": 0.7878787878787878,
+          "samples": 837,
+          "splits": 2,
+          "threshold": 0.5125
+        },
+        "model": "logistic",
+        "name": "Industrials",
+        "samples": 837,
+        "score": 0.7064393939393939,
+        "symbol": "XLI",
+        "threshold": 0.5125,
+        "updated_at": "2026-01-03 00:52"
+      },
+      "1w": {
+        "candidates": [
+          {
+            "feature_cols": 20,
+            "feature_group": "sector_tech",
+            "feature_hash": "08f0d023a751359642c37b0698d44c709119a59e384cebebfcd697c7f11caaf5",
+            "metrics": {
+              "accuracy": 0.5384615384615384,
+              "auc": 0.5212962962962963,
+              "balanced_accuracy": 0.5861111111111111,
+              "precision": 0.8055555555555555,
+              "recall": 0.5388888888888889,
+              "samples": 856,
+              "splits": 3,
+              "threshold": 0.5
+            },
+            "model": "logistic",
+            "samples": 856,
+            "score": 0.5861111111111111,
+            "threshold": 0.5
+          },
+          {
+            "feature_cols": 20,
+            "feature_group": "sector_tech",
+            "feature_hash": "08f0d023a751359642c37b0698d44c709119a59e384cebebfcd697c7f11caaf5",
+            "metrics": {
+              "accuracy": 0.5384615384615384,
+              "auc": 0.525,
+              "balanced_accuracy": 0.5851851851851851,
+              "precision": 0.7746031746031746,
+              "recall": 0.4314814814814814,
+              "samples": 856,
+              "splits": 3,
+              "threshold": 0.525
+            },
+            "model": "gboost",
+            "samples": 856,
+            "score": 0.5851851851851851,
+            "threshold": 0.525
+          },
+          {
+            "feature_cols": 20,
+            "feature_group": "sector_tech",
+            "feature_hash": "08f0d023a751359642c37b0698d44c709119a59e384cebebfcd697c7f11caaf5",
+            "metrics": {
+              "accuracy": 0.4615384615384615,
+              "auc": 0.5370370370370371,
+              "balanced_accuracy": 0.525,
+              "precision": 0.7222222222222222,
+              "recall": 0.37777777777777777,
+              "samples": 856,
+              "splits": 3,
+              "threshold": 0.5
+            },
+            "model": "hist_gb",
+            "samples": 856,
+            "score": 0.525,
+            "threshold": 0.5
+          }
+        ],
+        "feature_cols": 20,
+        "feature_group": "sector_tech",
+        "feature_hash": "08f0d023a751359642c37b0698d44c709119a59e384cebebfcd697c7f11caaf5",
+        "metrics": {
+          "accuracy": 0.5384615384615384,
+          "auc": 0.5212962962962963,
+          "balanced_accuracy": 0.5861111111111111,
+          "precision": 0.8055555555555555,
+          "recall": 0.5388888888888889,
+          "samples": 856,
+          "splits": 3,
+          "threshold": 0.5
+        },
+        "model": "logistic",
+        "name": "Industrials",
+        "samples": 856,
+        "score": 0.5861111111111111,
+        "symbol": "XLI",
+        "threshold": 0.5,
+        "updated_at": "2026-01-03 00:52"
+      }
+    },
+    "XLK": {
+      "1m": {
+        "candidates": [
+          {
+            "feature_cols": 32,
+            "feature_group": "macro_sector",
+            "feature_hash": "1a099b9d4ddd52e73da9d910b9685f06b9741082b1f614c3224770bc197c2a81",
+            "metrics": {
+              "accuracy": 0.6153846153846154,
+              "auc": 0.5727272727272728,
+              "balanced_accuracy": 0.6926136363636364,
+              "precision": 0.8571428571428572,
+              "recall": 0.5852272727272727,
+              "samples": 873,
+              "splits": 2,
+              "threshold": 0.5875
+            },
+            "model": "gboost",
+            "samples": 873,
+            "score": 0.6926136363636364,
+            "threshold": 0.5875
+          },
+          {
+            "feature_cols": 20,
+            "feature_group": "macro_core",
+            "feature_hash": "81691a92da1ee15cdbb8ff48b207e3ebe620df74679c01b303fdf3c7df79a45a",
+            "metrics": {
+              "accuracy": 0.5384615384615384,
+              "auc": 0.6795454545454546,
+              "balanced_accuracy": 0.6386363636363637,
+              "precision": 0.8333333333333333,
+              "recall": 0.4772727272727273,
+              "samples": 873,
+              "splits": 2,
+              "threshold": 0.55
+            },
+            "model": "gboost",
+            "samples": 873,
+            "score": 0.6386363636363637,
+            "threshold": 0.55
+          },
+          {
+            "feature_cols": 8,
+            "feature_group": "sector_tech",
+            "feature_hash": "324a3edc97ca245d90b23542687e6898b206ef4fa8ba1ecf9a461e88e7160110",
+            "metrics": {
+              "accuracy": 0.38461538461538464,
+              "auc": 0.5017045454545455,
+              "balanced_accuracy": 0.5681818181818181,
+              "precision": 0.5,
+              "recall": 0.13636363636363635,
+              "samples": 872,
+              "splits": 2,
+              "threshold": 0.5875
+            },
+            "model": "gboost",
+            "samples": 872,
+            "score": 0.5681818181818181,
+            "threshold": 0.5875
+          }
+        ],
+        "feature_cols": 32,
+        "feature_group": "macro_sector",
+        "feature_hash": "1a099b9d4ddd52e73da9d910b9685f06b9741082b1f614c3224770bc197c2a81",
+        "metrics": {
+          "accuracy": 0.6153846153846154,
+          "auc": 0.5727272727272728,
+          "balanced_accuracy": 0.6926136363636364,
+          "precision": 0.8571428571428572,
+          "recall": 0.5852272727272727,
+          "samples": 873,
+          "splits": 2,
+          "threshold": 0.5875
+        },
+        "model": "gboost",
+        "name": "Technology",
+        "samples": 873,
+        "score": 0.6926136363636364,
+        "symbol": "XLK",
+        "threshold": 0.5875,
+        "updated_at": "2026-01-03 00:27"
+      },
+      "1w": {
+        "candidates": [
+          {
+            "feature_cols": 20,
+            "feature_group": "macro_core",
+            "feature_hash": "6e43d58f1ee4b9643f7bb37c00d0ef624b83e092926661503c2552a6ba33866f",
+            "metrics": {
+              "accuracy": 0.5,
+              "auc": 0.54375,
+              "balanced_accuracy": 0.5,
+              "precision": 0.7916666666666667,
+              "recall": 0.5,
+              "samples": 846,
+              "splits": 2,
+              "threshold": 0.5
+            },
+            "model": "hist_gb",
+            "samples": 846,
+            "score": 0.5,
+            "threshold": 0.5
+          },
+          {
+            "feature_cols": 20,
+            "feature_group": "macro_core",
+            "feature_hash": "6e43d58f1ee4b9643f7bb37c00d0ef624b83e092926661503c2552a6ba33866f",
+            "metrics": {
+              "accuracy": 0.5,
+              "auc": 0.47500000000000003,
+              "balanced_accuracy": 0.5,
+              "precision": 0.6333333333333333,
+              "recall": 0.5,
+              "samples": 846,
+              "splits": 2,
+              "threshold": 0.525
+            },
+            "model": "gboost",
+            "samples": 846,
+            "score": 0.5,
+            "threshold": 0.525
+          },
+          {
+            "feature_cols": 32,
+            "feature_group": "macro_sector",
+            "feature_hash": "73eb775e46e144cfb8e6cdee3177e279a0aa3d1d791896dc26482306a41b21ba",
+            "metrics": {
+              "accuracy": 0.5,
+              "auc": 0.40625,
+              "balanced_accuracy": 0.5,
+              "precision": 0.6333333333333333,
+              "recall": 0.5,
+              "samples": 846,
+              "splits": 2,
+              "threshold": 0.55
+            },
+            "model": "gboost",
+            "samples": 846,
+            "score": 0.5,
+            "threshold": 0.55
+          }
+        ],
+        "feature_cols": 20,
+        "feature_group": "macro_core",
+        "feature_hash": "6e43d58f1ee4b9643f7bb37c00d0ef624b83e092926661503c2552a6ba33866f",
+        "metrics": {
+          "accuracy": 0.5,
+          "auc": 0.54375,
+          "balanced_accuracy": 0.5,
+          "precision": 0.7916666666666667,
+          "recall": 0.5,
+          "samples": 846,
+          "splits": 2,
+          "threshold": 0.5
+        },
+        "model": "hist_gb",
+        "name": "Technology",
+        "samples": 846,
+        "score": 0.5,
+        "symbol": "XLK",
+        "threshold": 0.5,
+        "updated_at": "2026-01-03 00:26"
+      }
+    },
+    "XLP": {
+      "1m": {
+        "candidates": [
+          {
+            "feature_cols": 36,
+            "feature_group": "macro_sector",
+            "feature_hash": "925fc4069c6cbfc904ade40c5e88cf74c676d32a9639bcc3cd83d535d46c1ec2",
+            "metrics": {
+              "accuracy": 0.8461538461538461,
+              "auc": 0.9090909090909091,
+              "balanced_accuracy": 0.9090909090909092,
+              "precision": 1.0,
+              "recall": 0.8181818181818182,
+              "samples": 865,
+              "splits": 1,
+              "threshold": 0.45
+            },
+            "model": "logistic",
+            "samples": 865,
+            "score": 0.9090909090909092,
+            "threshold": 0.45
+          },
+          {
+            "feature_cols": 44,
+            "feature_group": "macro_sector_plus_tech",
+            "feature_hash": "a1f177c4911d4c13358bc12ff107e311b3bf9e696a1c6c11cff5426324450de8",
+            "metrics": {
+              "accuracy": 0.8076923076923077,
+              "auc": 1.0,
+              "balanced_accuracy": 0.8901515151515151,
+              "precision": 1.0,
+              "recall": 0.7803030303030303,
+              "samples": 864,
+              "splits": 2,
+              "threshold": 0.425
+            },
+            "model": "hist_gb",
+            "samples": 864,
+            "score": 0.8901515151515151,
+            "threshold": 0.425
+          },
+          {
+            "feature_cols": 44,
+            "feature_group": "macro_sector_plus_tech",
+            "feature_hash": "a1f177c4911d4c13358bc12ff107e311b3bf9e696a1c6c11cff5426324450de8",
+            "metrics": {
+              "accuracy": 0.7692307692307692,
+              "auc": 0.9128787878787878,
+              "balanced_accuracy": 0.8674242424242424,
+              "precision": 1.0,
+              "recall": 0.7348484848484849,
+              "samples": 864,
+              "splits": 2,
+              "threshold": 0.5375
+            },
+            "model": "gboost",
+            "samples": 864,
+            "score": 0.8674242424242424,
+            "threshold": 0.5375
+          }
+        ],
+        "feature_cols": 36,
+        "feature_group": "macro_sector",
+        "feature_hash": "925fc4069c6cbfc904ade40c5e88cf74c676d32a9639bcc3cd83d535d46c1ec2",
+        "metrics": {
+          "accuracy": 0.8461538461538461,
+          "auc": 0.9090909090909091,
+          "balanced_accuracy": 0.9090909090909092,
+          "precision": 1.0,
+          "recall": 0.8181818181818182,
+          "samples": 865,
+          "splits": 1,
+          "threshold": 0.45
+        },
+        "model": "logistic",
+        "name": "Consumer Staples",
+        "samples": 865,
+        "score": 0.9090909090909092,
+        "symbol": "XLP",
+        "threshold": 0.45,
+        "updated_at": "2026-01-03 00:27"
+      },
+      "1w": {
+        "candidates": [
+          {
+            "feature_cols": 20,
+            "feature_group": "macro_core",
+            "feature_hash": "651167d55b2b71472af8cc81f9aa96be5fc2a6b080d30c8a78260dfe2df45300",
+            "metrics": {
+              "accuracy": 0.7435897435897436,
+              "auc": 0.5813492063492064,
+              "balanced_accuracy": 0.6386904761904763,
+              "precision": 0.7286324786324786,
+              "recall": 0.8190476190476191,
+              "samples": 864,
+              "splits": 3,
+              "threshold": 0.55
+            },
+            "model": "logistic",
+            "samples": 864,
+            "score": 0.6386904761904763,
+            "threshold": 0.55
+          },
+          {
+            "feature_cols": 56,
+            "feature_group": "macro_sector_plus_tech",
+            "feature_hash": "383b50eb4ea5a9e3311a977a8e0b26f69d5b48c46b06f58954492463c8d01cf4",
+            "metrics": {
+              "accuracy": 0.5897435897435898,
+              "auc": 0.6305555555555555,
+              "balanced_accuracy": 0.6229497354497355,
+              "precision": 0.7962962962962964,
+              "recall": 0.5601851851851852,
+              "samples": 863,
+              "splits": 3,
+              "threshold": 0.5
+            },
+            "model": "hist_gb",
+            "samples": 863,
+            "score": 0.6229497354497355,
+            "threshold": 0.5
+          },
+          {
+            "feature_cols": 56,
+            "feature_group": "macro_sector_plus_tech",
+            "feature_hash": "383b50eb4ea5a9e3311a977a8e0b26f69d5b48c46b06f58954492463c8d01cf4",
+            "metrics": {
+              "accuracy": 0.5641025641025642,
+              "auc": 0.5455026455026455,
+              "balanced_accuracy": 0.6141534391534392,
+              "precision": 0.7857142857142857,
+              "recall": 0.34259259259259256,
+              "samples": 863,
+              "splits": 3,
+              "threshold": 0.525
+            },
+            "model": "logistic",
+            "samples": 863,
+            "score": 0.6141534391534392,
+            "threshold": 0.525
+          }
+        ],
+        "feature_cols": 20,
+        "feature_group": "macro_core",
+        "feature_hash": "651167d55b2b71472af8cc81f9aa96be5fc2a6b080d30c8a78260dfe2df45300",
+        "metrics": {
+          "accuracy": 0.7435897435897436,
+          "auc": 0.5813492063492064,
+          "balanced_accuracy": 0.6386904761904763,
+          "precision": 0.7286324786324786,
+          "recall": 0.8190476190476191,
+          "samples": 864,
+          "splits": 3,
+          "threshold": 0.55
+        },
+        "model": "logistic",
+        "name": "Consumer Staples",
+        "samples": 864,
+        "score": 0.6386904761904763,
+        "symbol": "XLP",
+        "threshold": 0.55,
+        "updated_at": "2026-01-03 00:52"
+      }
+    },
+    "XLRE": {
+      "1m": {
+        "candidates": [
+          {
+            "feature_cols": 40,
+            "feature_group": "macro_sector",
+            "feature_hash": "e3d4648d0335005d36c06f2964dc8f41072fbe97218bd88c5b739db9b9bf4a25",
+            "metrics": {
+              "accuracy": 0.6153846153846154,
+              "auc": 0.8,
+              "balanced_accuracy": 0.7048611111111112,
+              "precision": 0.75,
+              "recall": 0.7222222222222222,
+              "samples": 388,
+              "splits": 2,
+              "threshold": 0.575
+            },
+            "model": "gboost",
+            "samples": 388,
+            "score": 0.7048611111111112,
+            "threshold": 0.575
+          },
+          {
+            "feature_cols": 20,
+            "feature_group": "macro_core",
+            "feature_hash": "8729fac8d3488041d21698102528943133db73688989a0d021f90951e510dc3f",
+            "metrics": {
+              "accuracy": 0.7307692307692308,
+              "auc": 0.6319444444444444,
+              "balanced_accuracy": 0.6972222222222222,
+              "precision": 0.6944444444444444,
+              "recall": 0.6444444444444444,
+              "samples": 388,
+              "splits": 2,
+              "threshold": 0.575
+            },
+            "model": "gboost",
+            "samples": 388,
+            "score": 0.6972222222222222,
+            "threshold": 0.575
+          },
+          {
+            "feature_cols": 20,
+            "feature_group": "macro_core",
+            "feature_hash": "8729fac8d3488041d21698102528943133db73688989a0d021f90951e510dc3f",
+            "metrics": {
+              "accuracy": 0.6923076923076923,
+              "auc": 0.6069444444444445,
+              "balanced_accuracy": 0.695138888888889,
+              "precision": 0.7916666666666667,
+              "recall": 0.5777777777777777,
+              "samples": 388,
+              "splits": 2,
+              "threshold": 0.5125
+            },
+            "model": "logistic",
+            "samples": 388,
+            "score": 0.695138888888889,
+            "threshold": 0.5125
+          }
+        ],
+        "feature_cols": 40,
+        "feature_group": "macro_sector",
+        "feature_hash": "e3d4648d0335005d36c06f2964dc8f41072fbe97218bd88c5b739db9b9bf4a25",
+        "metrics": {
+          "accuracy": 0.6153846153846154,
+          "auc": 0.8,
+          "balanced_accuracy": 0.7048611111111112,
+          "precision": 0.75,
+          "recall": 0.7222222222222222,
+          "samples": 388,
+          "splits": 2,
+          "threshold": 0.575
+        },
+        "model": "gboost",
+        "name": "Real Estate",
+        "samples": 388,
+        "score": 0.7048611111111112,
+        "symbol": "XLRE",
+        "threshold": 0.575,
+        "updated_at": "2026-01-03 00:27"
+      },
+      "1w": {
+        "candidates": [
+          {
+            "feature_cols": 48,
+            "feature_group": "macro_sector_plus_tech",
+            "feature_hash": "59dbd05f8f47469cdc0f2767e18ac57e63ad1599c74abc83668ae0f440c9e90b",
+            "metrics": {
+              "accuracy": 0.6538461538461539,
+              "auc": 0.6309523809523809,
+              "balanced_accuracy": 0.6666666666666666,
+              "precision": 0.6298701298701299,
+              "recall": 0.8571428571428572,
+              "samples": 400,
+              "splits": 2,
+              "threshold": 0.39999999999999997
+            },
+            "model": "hist_gb",
+            "samples": 400,
+            "score": 0.6666666666666666,
+            "threshold": 0.39999999999999997
+          },
+          {
+            "feature_cols": 8,
+            "feature_group": "sector_tech",
+            "feature_hash": "cf7f65a633f0268801460499fab579f135d7ae29d1d2a512677fd0b6b4f09c70",
+            "metrics": {
+              "accuracy": 0.5769230769230769,
+              "auc": 0.5476190476190477,
+              "balanced_accuracy": 0.5952380952380952,
+              "precision": 0.5625,
+              "recall": 0.48809523809523814,
+              "samples": 400,
+              "splits": 2,
+              "threshold": 0.575
+            },
+            "model": "logistic",
+            "samples": 400,
+            "score": 0.5952380952380952,
+            "threshold": 0.575
+          },
+          {
+            "feature_cols": 40,
+            "feature_group": "macro_sector",
+            "feature_hash": "d7d6a58ea83927abfeac325150913d38c8a6e0a7f1d7e7807fb93ebaa729f7bc",
+            "metrics": {
+              "accuracy": 0.5769230769230769,
+              "auc": 0.6547619047619047,
+              "balanced_accuracy": 0.5892857142857143,
+              "precision": 0.6190476190476191,
+              "recall": 0.47619047619047616,
+              "samples": 401,
+              "splits": 2,
+              "threshold": 0.4875
+            },
+            "model": "hist_gb",
+            "samples": 401,
+            "score": 0.5892857142857143,
+            "threshold": 0.4875
+          }
+        ],
+        "feature_cols": 48,
+        "feature_group": "macro_sector_plus_tech",
+        "feature_hash": "59dbd05f8f47469cdc0f2767e18ac57e63ad1599c74abc83668ae0f440c9e90b",
+        "metrics": {
+          "accuracy": 0.6538461538461539,
+          "auc": 0.6309523809523809,
+          "balanced_accuracy": 0.6666666666666666,
+          "precision": 0.6298701298701299,
+          "recall": 0.8571428571428572,
+          "samples": 400,
+          "splits": 2,
+          "threshold": 0.39999999999999997
+        },
+        "model": "hist_gb",
+        "name": "Real Estate",
+        "samples": 400,
+        "score": 0.6666666666666666,
+        "symbol": "XLRE",
+        "threshold": 0.39999999999999997,
+        "updated_at": "2026-01-03 00:26"
+      }
+    },
+    "XLU": {
+      "1m": {
+        "candidates": [
+          {
+            "feature_cols": 60,
+            "feature_group": "macro_sector_plus_tech",
+            "feature_hash": "65e76c987d1064863b13fd139a9a3f54fe29557482ff7a412686aac860402bed",
+            "metrics": {
+              "accuracy": 0.5641025641025641,
+              "auc": 0.7619047619047619,
+              "balanced_accuracy": 0.7056878306878307,
+              "precision": 0.8666666666666667,
+              "recall": 0.6018518518518519,
+              "samples": 832,
+              "splits": 3,
+              "threshold": 0.475
+            },
+            "model": "logistic",
+            "samples": 832,
+            "score": 0.7056878306878307,
+            "threshold": 0.475
+          },
+          {
+            "feature_cols": 60,
+            "feature_group": "macro_sector_plus_tech",
+            "feature_hash": "65e76c987d1064863b13fd139a9a3f54fe29557482ff7a412686aac860402bed",
+            "metrics": {
+              "accuracy": 0.6923076923076924,
+              "auc": 0.5132275132275131,
+              "balanced_accuracy": 0.667989417989418,
+              "precision": 0.7373737373737373,
+              "recall": 0.9074074074074074,
+              "samples": 832,
+              "splits": 3,
+              "threshold": 0.39999999999999997
+            },
+            "model": "hist_gb",
+            "samples": 832,
+            "score": 0.667989417989418,
+            "threshold": 0.39999999999999997
+          },
+          {
+            "feature_cols": 40,
+            "feature_group": "macro_sector",
+            "feature_hash": "33e90942a945146fb7a697ef9897e5e34c314fbf715f98db2bc3409285d17f1a",
+            "metrics": {
+              "accuracy": 0.564102564102564,
+              "auc": 0.7527777777777778,
+              "balanced_accuracy": 0.6652777777777777,
+              "precision": 0.7904761904761904,
+              "recall": 0.5666666666666668,
+              "samples": 833,
+              "splits": 3,
+              "threshold": 0.525
+            },
+            "model": "logistic",
+            "samples": 833,
+            "score": 0.6652777777777777,
+            "threshold": 0.525
+          }
+        ],
+        "feature_cols": 60,
+        "feature_group": "macro_sector_plus_tech",
+        "feature_hash": "65e76c987d1064863b13fd139a9a3f54fe29557482ff7a412686aac860402bed",
+        "metrics": {
+          "accuracy": 0.5641025641025641,
+          "auc": 0.7619047619047619,
+          "balanced_accuracy": 0.7056878306878307,
+          "precision": 0.8666666666666667,
+          "recall": 0.6018518518518519,
+          "samples": 832,
+          "splits": 3,
+          "threshold": 0.475
+        },
+        "model": "logistic",
+        "name": "Utilities",
+        "samples": 832,
+        "score": 0.7056878306878307,
+        "symbol": "XLU",
+        "threshold": 0.475,
+        "updated_at": "2026-01-03 00:52"
+      },
+      "1w": {
+        "candidates": [
+          {
+            "feature_cols": 204,
+            "feature_group": "macro_all_plus_tech",
+            "feature_hash": "5c3c0453b2057491058ef9c0e8d7ef2c20e47148c9ddfc17d1a9682ef4ffb98b",
+            "metrics": {
+              "accuracy": 0.5897435897435898,
+              "auc": 0.6666666666666666,
+              "balanced_accuracy": 0.6071428571428571,
+              "precision": 0.7936507936507936,
+              "recall": 0.38095238095238093,
+              "samples": 854,
+              "splits": 3,
+              "threshold": 0.55
+            },
+            "model": "logistic",
+            "samples": 854,
+            "score": 0.6071428571428571,
+            "threshold": 0.55
+          },
+          {
+            "feature_cols": 40,
+            "feature_group": "macro_core_plus_tech",
+            "feature_hash": "e569567154a60ea1448989ebfdb1f81b6c777dee7e97c2095acbbc146821fb54",
+            "metrics": {
+              "accuracy": 0.5384615384615384,
+              "auc": 0.5317460317460317,
+              "balanced_accuracy": 0.5515873015873016,
+              "precision": 0.6984126984126985,
+              "recall": 0.38095238095238093,
+              "samples": 854,
+              "splits": 3,
+              "threshold": 0.575
+            },
+            "model": "hist_gb",
+            "samples": 854,
+            "score": 0.5515873015873016,
+            "threshold": 0.575
+          },
+          {
+            "feature_cols": 40,
+            "feature_group": "macro_core_plus_tech",
+            "feature_hash": "e569567154a60ea1448989ebfdb1f81b6c777dee7e97c2095acbbc146821fb54",
+            "metrics": {
+              "accuracy": 0.564102564102564,
+              "auc": 0.4365079365079365,
+              "balanced_accuracy": 0.5357142857142857,
+              "precision": 0.5673076923076922,
+              "recall": 0.9047619047619048,
+              "samples": 854,
+              "splits": 3,
+              "threshold": 0.35
+            },
+            "model": "mlp",
+            "samples": 854,
+            "score": 0.5357142857142857,
+            "threshold": 0.35
+          }
+        ],
+        "feature_cols": 204,
+        "feature_group": "macro_all_plus_tech",
+        "feature_hash": "5c3c0453b2057491058ef9c0e8d7ef2c20e47148c9ddfc17d1a9682ef4ffb98b",
+        "metrics": {
+          "accuracy": 0.5897435897435898,
+          "auc": 0.6666666666666666,
+          "balanced_accuracy": 0.6071428571428571,
+          "precision": 0.7936507936507936,
+          "recall": 0.38095238095238093,
+          "samples": 854,
+          "splits": 3,
+          "threshold": 0.55
+        },
+        "model": "logistic",
+        "name": "Utilities",
+        "samples": 854,
+        "score": 0.6071428571428571,
+        "symbol": "XLU",
+        "threshold": 0.55,
+        "updated_at": "2026-01-03 00:52"
+      }
+    },
+    "XLV": {
+      "1m": {
+        "candidates": [
+          {
+            "feature_cols": 20,
+            "feature_group": "macro_core",
+            "feature_hash": "42ab143141218aee906433bcf624dd2e3dba66ecd77f52039056fdc43f8f8756",
+            "metrics": {
+              "accuracy": 0.7307692307692308,
+              "auc": 0.9128787878787878,
+              "balanced_accuracy": 0.8484848484848484,
+              "precision": 0.6,
+              "recall": 0.8636363636363636,
+              "samples": 847,
+              "splits": 2,
+              "threshold": 0.525
+            },
+            "model": "mlp",
+            "samples": 847,
+            "score": 0.8484848484848484,
+            "threshold": 0.525
+          },
+          {
+            "feature_cols": 204,
+            "feature_group": "macro_all_plus_tech",
+            "feature_hash": "b7871f967f83f74c60cedb53633952afe2077fe12db724bbd390b737efb644d8",
+            "metrics": {
+              "accuracy": 0.6153846153846154,
+              "auc": 0.8045454545454546,
+              "balanced_accuracy": 0.7075757575757576,
+              "precision": 0.5555555555555556,
+              "recall": 0.9,
+              "samples": 846,
+              "splits": 2,
+              "threshold": 0.35
+            },
+            "model": "logistic",
+            "samples": 846,
+            "score": 0.7075757575757576,
+            "threshold": 0.35
+          },
+          {
+            "feature_cols": 20,
+            "feature_group": "sector_tech",
+            "feature_hash": "4483174548aef9a8b0d1aea651b4abe8c211f6a841d8526c56ee76bcf833373f",
+            "metrics": {
+              "accuracy": 0.5384615384615384,
+              "auc": 0.7992424242424242,
+              "balanced_accuracy": 0.6022727272727273,
+              "precision": 0.25,
+              "recall": 0.25,
+              "samples": 846,
+              "splits": 2,
+              "threshold": 0.5625
+            },
+            "model": "gboost",
+            "samples": 846,
+            "score": 0.6022727272727273,
+            "threshold": 0.5625
+          }
+        ],
+        "feature_cols": 20,
+        "feature_group": "macro_core",
+        "feature_hash": "42ab143141218aee906433bcf624dd2e3dba66ecd77f52039056fdc43f8f8756",
+        "metrics": {
+          "accuracy": 0.7307692307692308,
+          "auc": 0.9128787878787878,
+          "balanced_accuracy": 0.8484848484848484,
+          "precision": 0.6,
+          "recall": 0.8636363636363636,
+          "samples": 847,
+          "splits": 2,
+          "threshold": 0.525
+        },
+        "model": "mlp",
+        "name": "Health Care",
+        "samples": 847,
+        "score": 0.8484848484848484,
+        "symbol": "XLV",
+        "threshold": 0.525,
+        "updated_at": "2026-01-03 00:52"
+      },
+      "1w": {
+        "candidates": [
+          {
+            "feature_cols": 36,
+            "feature_group": "macro_sector",
+            "feature_hash": "03186f9166a0b3009250a2896e9dfb293dba32aba139093ba60dd96f33a6e524",
+            "metrics": {
+              "accuracy": 0.5384615384615385,
+              "auc": 0.4176587301587302,
+              "balanced_accuracy": 0.5357142857142857,
+              "precision": 0.6022727272727273,
+              "recall": 0.75,
+              "samples": 858,
+              "splits": 2,
+              "threshold": 0.5125
+            },
+            "model": "gboost",
+            "samples": 858,
+            "score": 0.5357142857142857,
+            "threshold": 0.5125
+          },
+          {
+            "feature_cols": 36,
+            "feature_group": "macro_sector",
+            "feature_hash": "03186f9166a0b3009250a2896e9dfb293dba32aba139093ba60dd96f33a6e524",
+            "metrics": {
+              "accuracy": 0.46153846153846156,
+              "auc": 0.7301587301587302,
+              "balanced_accuracy": 0.5208333333333333,
+              "precision": 0.6057692307692308,
+              "recall": 0.6666666666666666,
+              "samples": 858,
+              "splits": 2,
+              "threshold": 0.5
+            },
+            "model": "logistic",
+            "samples": 858,
+            "score": 0.5208333333333333,
+            "threshold": 0.5
+          },
+          {
+            "feature_cols": 20,
+            "feature_group": "macro_core",
+            "feature_hash": "2e52a8a17e6749319c456328b532b8ec2fb176b24fcb58c5fbb446a155d2cda2",
+            "metrics": {
+              "accuracy": 0.5769230769230769,
+              "auc": 0.751984126984127,
+              "balanced_accuracy": 0.5,
+              "precision": 0.5769230769230769,
+              "recall": 1.0,
+              "samples": 858,
+              "splits": 2,
+              "threshold": 0.4375
+            },
+            "model": "logistic",
+            "samples": 858,
+            "score": 0.5,
+            "threshold": 0.4375
+          }
+        ],
+        "feature_cols": 36,
+        "feature_group": "macro_sector",
+        "feature_hash": "03186f9166a0b3009250a2896e9dfb293dba32aba139093ba60dd96f33a6e524",
+        "metrics": {
+          "accuracy": 0.5384615384615385,
+          "auc": 0.4176587301587302,
+          "balanced_accuracy": 0.5357142857142857,
+          "precision": 0.6022727272727273,
+          "recall": 0.75,
+          "samples": 858,
+          "splits": 2,
+          "threshold": 0.5125
+        },
+        "model": "gboost",
+        "name": "Health Care",
+        "samples": 858,
+        "score": 0.5357142857142857,
+        "symbol": "XLV",
+        "threshold": 0.5125,
+        "updated_at": "2026-01-03 00:26"
+      }
+    },
+    "XLY": {
+      "1m": {
+        "candidates": [
+          {
+            "feature_cols": 20,
+            "feature_group": "macro_core",
+            "feature_hash": "f82f30dc18fe460fb83161faead0ce366a48a08022ebebe2b4c2359c1476740a",
+            "metrics": {
+              "accuracy": 0.7692307692307693,
+              "auc": 0.9151515151515153,
+              "balanced_accuracy": 0.803030303030303,
+              "precision": 0.9545454545454546,
+              "recall": 0.7727272727272727,
+              "samples": 850,
+              "splits": 2,
+              "threshold": 0.4875
+            },
+            "model": "gboost",
+            "samples": 850,
+            "score": 0.803030303030303,
+            "threshold": 0.4875
+          },
+          {
+            "feature_cols": 40,
+            "feature_group": "macro_sector",
+            "feature_hash": "d55f17c1de076eeb7fdca17c3dcc0b88bca32ce9c2832f838cc5715766301cd5",
+            "metrics": {
+              "accuracy": 0.8076923076923077,
+              "auc": 0.7333333333333334,
+              "balanced_accuracy": 0.675,
+              "precision": 0.9230769230769231,
+              "recall": 0.85,
+              "samples": 850,
+              "splits": 2,
+              "threshold": 0.5625
+            },
+            "model": "gboost",
+            "samples": 850,
+            "score": 0.675,
+            "threshold": 0.5625
+          },
+          {
+            "feature_cols": 48,
+            "feature_group": "macro_sector_plus_tech",
+            "feature_hash": "9578120f1274972b5764e62ca3c225356aafcf8b69f07a0ad17a14b28878e0db",
+            "metrics": {
+              "accuracy": 0.8076923076923077,
+              "auc": 0.7272727272727273,
+              "balanced_accuracy": 0.6666666666666666,
+              "precision": 0.9230769230769231,
+              "recall": 0.8333333333333333,
+              "samples": 849,
+              "splits": 2,
+              "threshold": 0.525
+            },
+            "model": "gboost",
+            "samples": 849,
+            "score": 0.6666666666666666,
+            "threshold": 0.525
+          }
+        ],
+        "feature_cols": 20,
+        "feature_group": "macro_core",
+        "feature_hash": "f82f30dc18fe460fb83161faead0ce366a48a08022ebebe2b4c2359c1476740a",
+        "metrics": {
+          "accuracy": 0.7692307692307693,
+          "auc": 0.9151515151515153,
+          "balanced_accuracy": 0.803030303030303,
+          "precision": 0.9545454545454546,
+          "recall": 0.7727272727272727,
+          "samples": 850,
+          "splits": 2,
+          "threshold": 0.4875
+        },
+        "model": "gboost",
+        "name": "Consumer Discretionary",
+        "samples": 850,
+        "score": 0.803030303030303,
+        "symbol": "XLY",
+        "threshold": 0.4875,
+        "updated_at": "2026-01-03 00:27"
+      },
+      "1w": {
+        "candidates": [
+          {
+            "feature_cols": 40,
+            "feature_group": "macro_core_plus_tech",
+            "feature_hash": "6c94ea095adc820c1455ab785cd096bc8ce39c3c2032c4c612a4cee071a10ce2",
+            "metrics": {
+              "accuracy": 0.5897435897435898,
+              "auc": 0.6259259259259259,
+              "balanced_accuracy": 0.6231481481481481,
+              "precision": 0.8777777777777778,
+              "recall": 0.5518518518518519,
+              "samples": 834,
+              "splits": 3,
+              "threshold": 0.5
+            },
+            "model": "logistic",
+            "samples": 834,
+            "score": 0.6231481481481481,
+            "threshold": 0.5
+          },
+          {
+            "feature_cols": 40,
+            "feature_group": "macro_sector",
+            "feature_hash": "decda92eb4966ad50d654553621fbedd02373c82b80c4310f97a7083795c99d2",
+            "metrics": {
+              "accuracy": 0.5641025641025642,
+              "auc": 0.6981481481481482,
+              "balanced_accuracy": 0.6222222222222222,
+              "precision": 0.5925925925925926,
+              "recall": 0.4666666666666666,
+              "samples": 835,
+              "splits": 3,
+              "threshold": 0.525
+            },
+            "model": "mlp",
+            "samples": 835,
+            "score": 0.6222222222222222,
+            "threshold": 0.525
+          },
+          {
+            "feature_cols": 184,
+            "feature_group": "macro_all",
+            "feature_hash": "4ba69edf7d4acf1468a3186a328e91ddb402f786ed0f97004b6a4d3cfd7ce36c",
+            "metrics": {
+              "accuracy": 0.5641025641025641,
+              "auc": 0.5166666666666667,
+              "balanced_accuracy": 0.5777777777777778,
+              "precision": 0.8557692307692308,
+              "recall": 0.6,
+              "samples": 835,
+              "splits": 3,
+              "threshold": 0.45
+            },
+            "model": "logistic",
+            "samples": 835,
+            "score": 0.5777777777777778,
+            "threshold": 0.45
+          }
+        ],
+        "feature_cols": 40,
+        "feature_group": "macro_core_plus_tech",
+        "feature_hash": "6c94ea095adc820c1455ab785cd096bc8ce39c3c2032c4c612a4cee071a10ce2",
+        "metrics": {
+          "accuracy": 0.5897435897435898,
+          "auc": 0.6259259259259259,
+          "balanced_accuracy": 0.6231481481481481,
+          "precision": 0.8777777777777778,
+          "recall": 0.5518518518518519,
+          "samples": 834,
+          "splits": 3,
+          "threshold": 0.5
+        },
+        "model": "logistic",
+        "name": "Consumer Discretionary",
+        "samples": 834,
+        "score": 0.6231481481481481,
+        "symbol": "XLY",
+        "threshold": 0.5,
+        "updated_at": "2026-01-03 00:52"
+      }
+    }
+  }
+}

@@ -20,7 +20,7 @@ class TestFredEngine(unittest.TestCase):
             values = list(range(100, 113))
             self._write_series(root, "INDPRO", values, dates)
 
-            engine = FredDataEngine(data_dir=str(root))
+            engine = FredDataEngine(data_dir=str(root), db_path=str(root / "timeseries.db"))
             metrics = engine.get_series_metrics("INDPRO")
 
             self.assertEqual(metrics.get("last_date"), dates[-1].strftime("%Y-%m-%d"))
@@ -33,7 +33,7 @@ class TestFredEngine(unittest.TestCase):
             values = list(range(200, 213))
             self._write_series(root, "CPIAUCSL", values, dates)
 
-            engine = FredDataEngine(data_dir=str(root))
+            engine = FredDataEngine(data_dir=str(root), db_path=str(root / "timeseries.db"))
             data = engine.get_category_data("inflation")
 
             self.assertIn("CPIAUCSL", data)

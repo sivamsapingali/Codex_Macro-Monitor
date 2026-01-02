@@ -39,11 +39,11 @@ analyzer = MacroAnalyzer(engine)
 
 # Helpers
 def convert_numpy_types(obj):
-    if isinstance(obj, (np.int64, np.int32)):
+    if isinstance(obj, np.integer):
         return int(obj)
-    if isinstance(obj, (np.float64, np.float32)):
+    if isinstance(obj, (np.floating, float)):
         val = float(obj)
-        return None if math.isnan(val) else val
+        return None if not math.isfinite(val) else val
     if isinstance(obj, dict):
         return {k: convert_numpy_types(v) for k, v in obj.items()}
     if isinstance(obj, list):
@@ -54,8 +54,8 @@ def convert_numpy_types(obj):
 async def startup_event():
     """Initialize data on startup"""
     import threading
-    threading.Thread(target=lambda: engine.initialize_data(refresh_existing=False)).start()
-    threading.Thread(target=lambda: market_engine.initialize_data(refresh_existing=False)).start()
+    threading.Thread(target=engine.refresh_stale).start()
+    threading.Thread(target=market_engine.refresh_stale).start()
 
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
@@ -70,7 +70,9 @@ async def get_status():
         "status": "online",
         "engine": "active",
         "data_points": len(engine.series_map),
-        "market_symbols": len(SECTOR_ETFS)
+        "market_symbols": len(SECTOR_ETFS),
+        "data_mode": "cached" if not engine.can_fetch else "live",
+        "market_provider": market_engine.provider,
     }
 
 @app.get("/api/intelligence")
@@ -123,11 +125,12 @@ async def get_series_data(series_id: str, range: str = "5y"):
         
     filtered = series[series.index >= start_date]
     
-    return {
+    payload = {
         "id": series_id,
         "name": engine.series_map.get(series_id, {}).get('name', series_id),
         "data": [{"date": d.strftime("%Y-%m-%d"), "value": v} for d, v in filtered.items()]
     }
+    return convert_numpy_types(payload)
 
 @app.get("/api/admin/force-update")
 async def force_update():
@@ -165,6 +168,39 @@ async def get_predictions():
     except Exception as e:
         print(f"Prediction Error: {e}")
         return {"error": "Prediction engine failed"}
+
+@app.get("/api/options")
+async def get_options():
+    try:
+        data = predictor.get_options_ideas()
+        return convert_numpy_types(data)
+    except Exception as e:
+        print(f"Options Error: {e}")
+        return {"error": "Options engine failed"}
+
+@app.get("/api/backtest")
+async def get_backtest():
+    try:
+        data = predictor.get_backtest()
+        return convert_numpy_types(data)
+    except Exception as e:
+        print(f"Backtest Error: {e}")
+        return {"error": "Backtest engine failed"}
+
+@app.get("/api/model-selection")
+async def get_model_selection():
+    try:
+        data = predictor.get_model_selection()
+        return convert_numpy_types(data)
+    except Exception as e:
+        print(f"Model selection error: {e}")
+        return {"error": "Model selection load failed"}
+
+@app.get("/api/admin/optimize-models")
+async def optimize_models():
+    import threading
+    threading.Thread(target=predictor.optimize_models).start()
+    return {"message": "Model optimization started in background"}
 
 @app.get("/api/usage")
 async def get_usage():

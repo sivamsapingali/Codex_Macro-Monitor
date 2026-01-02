@@ -131,10 +131,19 @@
         <div class="actionable-panel">
           <div class="card-header">
             <span>Actionable Items</span>
-            <span class="tag tag-live">NEXT 1-3M</span>
+            <span class="tag tag-live">NEXT 1W-1M</span>
           </div>
           <div id="actionable-items" class="actionable-grid">
             <div class="loading">Building action list...</div>
+          </div>
+        </div>
+        <div class="trade-panel">
+          <div class="card-header">
+            <span>Trade Ideas</span>
+            <span class="tag tag-live">DIRECTIONAL</span>
+          </div>
+          <div id="trade-ideas" class="trade-grid">
+            <div class="loading">Ranking trade ideas...</div>
           </div>
         </div>
         <div id="sector-grid" class="sector-grid">
@@ -155,9 +164,9 @@
             </div>
             <ol class="flow-list">
               <li><span class="flow-index">1</span> Normalize macro + market data weekly</li>
-              <li><span class="flow-index">2</span> Build acceleration/deceleration features</li>
-              <li><span class="flow-index">3</span> Walk-forward train per sector + horizon</li>
-              <li><span class="flow-index">4</span> Produce direction + confidence with calibration</li>
+              <li><span class="flow-index">2</span> Build sector-specific macro + momentum/volatility features</li>
+              <li><span class="flow-index">3</span> Train direction classifier + return regression per horizon</li>
+              <li><span class="flow-index">4</span> Size trades by risk + expected return; rank by expected P&L</li>
             </ol>
           </div>
 
@@ -184,6 +193,17 @@
             <div class="method-chart">
               <canvas id="method-accuracy-chart"></canvas>
             </div>
+          </div>
+        </div>
+
+        <div class="card method-card backtest-card">
+          <div class="card-header">
+            <span>Walk-Forward Backtest</span>
+            <span class="tag tag-live">OUT-OF-SAMPLE</span>
+          </div>
+          <div id="backtest-summary" class="model-summary"></div>
+          <div class="method-chart backtest-chart">
+            <canvas id="backtest-chart"></canvas>
           </div>
         </div>
 
