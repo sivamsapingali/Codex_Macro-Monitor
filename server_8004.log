@@ -1,0 +1,8 @@
+INFO:     Started server process [91601]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8004 (Press CTRL+C to quit)
+🚀 Initializing FRED Data Engine with 49 series...
+📈 Initializing Market Data Engine (stooq)...
+✅ Initialization complete. Updated 0 series.
+INFO:     127.0.0.1:64837 - "GET /api/status HTTP/1.1" 200 OK

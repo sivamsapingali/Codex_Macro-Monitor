@@ -1,0 +1,23 @@
+{
+  "alpha_vantage": {
+    "count": 11,
+    "daily_limit": 500,
+    "date": "2026-01-02",
+    "last_request": "2026-01-02T13:15:04",
+    "per_minute_limit": 5
+  },
+  "fred": {
+    "count": 224,
+    "daily_limit": null,
+    "date": "2026-01-02",
+    "last_request": "2026-01-02T13:51:54",
+    "per_minute_limit": 120
+  },
+  "stooq": {
+    "count": 11,
+    "daily_limit": null,
+    "date": "2026-01-02",
+    "last_request": "2026-01-02T13:20:49",
+    "per_minute_limit": null
+  }
+}

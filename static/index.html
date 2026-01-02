@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Macro Intelligence Terminal</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<body>
+  <div class="noise"></div>
+  <div class="app-shell">
+    <aside class="side-panel">
+      <div class="brand">
+        <div class="brand-dot"></div>
+        <div class="brand-text">MACROINTEL</div>
+        <div class="brand-version">v3.0</div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-title">Views</div>
+        <a href="#" class="nav-item active" data-view="dashboard">Dashboard</a>
+        <a href="#" class="nav-item" data-view="sectors">Sector Alpha</a>
+        <a href="#" class="nav-item" data-view="methodology">Methodology</a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-title">Categories</div>
+        <a href="#" class="nav-item" onclick="switchCategory('growth')">Growth</a>
+        <a href="#" class="nav-item" onclick="switchCategory('inflation')">Inflation</a>
+        <a href="#" class="nav-item" onclick="switchCategory('labor')">Labor</a>
+        <a href="#" class="nav-item" onclick="switchCategory('rates')">Rates</a>
+        <a href="#" class="nav-item" onclick="switchCategory('money')">Liquidity</a>
+        <a href="#" class="nav-item" onclick="switchCategory('housing')">Housing</a>
+        <a href="#" class="nav-item" onclick="switchCategory('commodities')">Commodities</a>
+        <a href="#" class="nav-item" onclick="switchCategory('markets')">Markets</a>
+      </div>
+
+      <div class="signals-panel">
+        <div class="signals-title">Active Signals</div>
+        <div id="signals-sidebar" class="signals-list">No active signals</div>
+      </div>
+
+      <div class="status-panel">
+        <div class="status-dot"></div>
+        <span id="status-text">System Online</span>
+        <span id="status-meta" class="status-meta">-- series</span>
+      </div>
+    </aside>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <div class="topbar-left">
+          <span class="topbar-label">Macro Intelligence Terminal</span>
+        </div>
+        <div class="topbar-center">
+          <div id="regime-chip" class="regime-chip">Loading</div>
+        </div>
+        <div class="topbar-right">
+          <div id="clock" class="clock">--:--:--</div>
+          <button class="btn btn-outline" onclick="forceUpdate()">SYNC</button>
+        </div>
+      </header>
+
+      <div id="view-dashboard" class="content-view active">
+        <div class="dashboard-grid">
+          <div class="dashboard-main">
+            <div class="card-grid-3">
+              <div class="card regime-card">
+                <div class="card-header">
+                  <span>Economic Regime</span>
+                  <span class="tag tag-live">LIVE</span>
+                </div>
+                <div id="regime-main" class="regime-main">
+                  <div class="skeleton-line"></div>
+                </div>
+              </div>
+
+              <div class="card metrics-card">
+                <div class="card-header">
+                  <span>Key Metrics</span>
+                </div>
+                <div id="key-metrics" class="metrics-grid">
+                  <div class="skeleton-line"></div>
+                </div>
+              </div>
+
+              <div class="card anomalies-card">
+                <div class="card-header">
+                  <span>Anomalies</span>
+                  <span class="tag tag-warn">OUTLIERS</span>
+                </div>
+                <div id="anomalies-list" class="anomaly-list">No anomalies detected</div>
+              </div>
+            </div>
+
+            <div class="section-header">
+              <h2 id="category-title">Key Indicators</h2>
+              <div class="section-line"></div>
+            </div>
+            <div id="content-panels" class="indicator-grid">
+              <div class="loading">Loading Data Engine...</div>
+            </div>
+          </div>
+
+          <aside class="dashboard-rail">
+            <div id="side-metrics" class="rail-metrics"></div>
+            <div class="rail-card">
+              <div class="rail-title">SPY Proxy</div>
+              <canvas id="rail-chart"></canvas>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <div id="view-sectors" class="content-view" style="display: none;">
+        <div class="section-header">
+          <h2>Sector Alpha Outlook</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="actionable-panel">
+          <div class="card-header">
+            <span>Actionable Items</span>
+            <span class="tag tag-live">NEXT 1-3M</span>
+          </div>
+          <div id="actionable-items" class="actionable-grid">
+            <div class="loading">Building action list...</div>
+          </div>
+        </div>
+        <div id="sector-grid" class="sector-grid">
+          <div class="loading">Loading Sector Models...</div>
+        </div>
+      </div>
+
+      <div id="view-methodology" class="content-view" style="display: none;">
+        <div class="section-header">
+          <h2>Model & Data Methodology</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="method-grid">
+          <div class="card method-card">
+            <div class="card-header">
+              <span>How The Model Runs</span>
+            </div>
+            <ol class="flow-list">
+              <li><span class="flow-index">1</span> Normalize macro + market data weekly</li>
+              <li><span class="flow-index">2</span> Build acceleration/deceleration features</li>
+              <li><span class="flow-index">3</span> Walk-forward train per sector + horizon</li>
+              <li><span class="flow-index">4</span> Produce direction + confidence with calibration</li>
+            </ol>
+          </div>
+
+          <div class="card method-card">
+            <div class="card-header">
+              <span>Data Legitimacy</span>
+            </div>
+            <ul class="source-list">
+              <li>Macro data: FRED (official Federal Reserve series)</li>
+              <li>Market data: Stooq / Alpha Vantage ETF closes</li>
+              <li>Cached + rate-limit aware ingestion with audit trail</li>
+            </ul>
+            <div id="data-usage" class="usage-grid"></div>
+          </div>
+
+          <div class="card method-card">
+            <div class="card-header">
+              <span>Prediction Power</span>
+            </div>
+            <div id="model-power" class="power-grid">
+              <div class="skeleton-line"></div>
+            </div>
+            <div id="model-summary" class="model-summary"></div>
+            <div class="method-chart">
+              <canvas id="method-accuracy-chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="card method-card">
+          <div class="card-header">
+            <span>How To Read The Signals</span>
+          </div>
+          <div class="signal-legend">
+            <div class="legend-item">
+              <span class="legend-dot up"></span>
+              <span>Acceleration UP = positive expected return</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot down"></span>
+              <span>Acceleration DOWN = risk-off or mean reversion</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot neutral"></span>
+              <span>Neutral = low conviction, avoid sizing up</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+
+</html>
